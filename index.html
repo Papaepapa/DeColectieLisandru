@@ -538,32 +538,6 @@
     }
 
     /* =========================================================
-       GALERIE
-    ========================================================= */
-    #galerie { background: var(--black); }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 200px;
-      gap: 1rem;
-      margin-top: 3rem;
-    }
-    .gal {
-      position: relative; overflow: hidden; border: 1px solid var(--line);
-    }
-    .gal .photo::before {
-      content: attr(data-label);
-      position: absolute; z-index: 4; bottom: 1rem; left: 1rem;
-      font-size: .6rem; letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
-      opacity: 0; transform: translateY(8px); transition: .4s;
-    }
-    .gal:hover .photo::before { opacity: 1; transform: translateY(0); }
-    .gal:hover .photo { transform: scale(1.05); }
-    .gal .photo { transition: transform .8s cubic-bezier(.2,.7,.3,1); }
-    .gal.tall { grid-row: span 2; }
-    .gal.wide { grid-column: span 2; }
-
-    /* =========================================================
        RECENZII
     ========================================================= */
     #recenzii { background: var(--black-soft); text-align: center; }
@@ -665,7 +639,6 @@
       .story-grid, .product-grid, .contact-grid { grid-template-columns: 1fr; }
       .story-figure { max-width: 420px; margin-inline: auto; }
       .why-grid, .reviews { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
 
       .nav-links {
@@ -691,8 +664,6 @@
       .vinul-meta { gap: 1.6rem; }
       .product-gallery { grid-template-columns: 1fr; }
       .product-gallery .main { grid-row: auto; aspect-ratio: 3/4; }
-      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
-      .gal.wide, .gal.tall { grid-column: auto; grid-row: auto; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
@@ -715,9 +686,9 @@
       <li><a href="#poveste">Povestea noastră</a></li>
       <li><a href="#vinul">Vinul</a></li>
       <li><a href="#colectia">Colecția</a></li>
-      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="colectie.html">Galerie</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#colectia" class="nav-cta">Cumpără</a></li>
+      <li><a href="colectie.html" class="nav-cta">Alege sticla</a></li>
     </ul>
 
     <button class="nav-toggle" id="navToggle" aria-label="Meniu">
@@ -742,7 +713,7 @@
               Descoperă povestea
               <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
             </a>
-            <a href="#colectia" class="btn">Rezervă sticla</a>
+            <a href="colectie.html" class="btn">Rezervă sticla</a>
           </div>
         </div>
 
@@ -775,7 +746,7 @@
             <line x1="60" y1="270" x2="90" y2="270" stroke="#C6A250" stroke-width=".6"/>
             <text x="75" y="292" text-anchor="middle" font-family="Jost, sans-serif" font-size="6" fill="#6B4C3B" letter-spacing="2">VIN ROȘU</text>
             <text x="75" y="318" text-anchor="middle" font-family="Playfair Display, serif" font-size="9" fill="#3A2A1E">Lot 01</text>
-            <text x="75" y="330" text-anchor="middle" font-family="Jost, sans-serif" font-size="5" fill="#6B4C3B" letter-spacing="1.5">Nr. 042 / 200</text>
+            <text x="75" y="330" text-anchor="middle" font-family="Jost, sans-serif" font-size="5" fill="#6B4C3B" letter-spacing="1.5">Nr. 042 / 100</text>
           </svg>
         </div>
       </div>
@@ -832,7 +803,7 @@
 
       <div class="vinul-meta">
         <div class="item">
-          <div class="k">200</div>
+          <div class="k">100</div>
           <div class="l">Sticle în lot</div>
         </div>
         <div class="item">
@@ -914,7 +885,7 @@
             <li><span>Lot</span><span>01 · producție limitată</span></li>
             <li><span>Volum</span><span>750 ml</span></li>
             <li><span>Numerotare</span><span>Fiecare sticlă numerotată</span></li>
-            <li><span>Disponibil</span><span>42 din 200 sticle</span></li>
+            <li><span>Disponibil</span><span id="productAvailability">82 din 100 sticle</span></li>
           </ul>
 
           <div class="price-row">
@@ -924,7 +895,7 @@
           <div class="stock-note"><span class="dot"></span> Ediție limitată — stoc redus din lotul 01</div>
 
           <div class="hero-actions" style="margin-top:2rem;">
-            <a href="#contact" class="btn solid">
+            <a href="colectie.html" class="btn solid">
               Rezervă sticla
               <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
             </a>
@@ -968,26 +939,6 @@
           <h3>Personalitate <em>proprie</em></h3>
           <p>Fiecare sticlă poartă amprenta anului — un caracter care nu se repetă niciodată.</p>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= GALERIE ================= -->
-  <section id="galerie" class="pad">
-    <div class="container">
-      <div class="reveal" style="text-align:center;">
-        <span class="eyebrow centered">Galerie</span>
-        <h2 class="section-title">Fiecare detaliu, <em>o poveste.</em></h2>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gal tall reveal"><div class="photo" data-label="Sticla LISANDRU"></div></div>
-        <div class="gal reveal"><div class="photo" data-label="Eticheta"></div></div>
-        <div class="gal wide reveal"><div class="photo" data-label="Vin turnat în pahar"></div></div>
-        <div class="gal reveal"><div class="photo" data-label="Cutia cadou"></div></div>
-        <div class="gal wide reveal"><div class="photo" data-label="Masa elegantă"></div></div>
-        <div class="gal reveal"><div class="photo" data-label="Pivnița"></div></div>
-        <div class="gal reveal"><div class="photo" data-label="Detalii de familie"></div></div>
       </div>
     </div>
   </section>
@@ -1052,11 +1003,11 @@
           </div>
         </div>
 
-        <form class="reveal" onsubmit="return false;" aria-label="Formular de rezervare">
-          <div class="field"><input type="text" placeholder="Nume și prenume" required /></div>
-          <div class="field"><input type="email" placeholder="Adresă de email" required /></div>
+        <form class="reveal" id="reservationForm" onsubmit="return false;" aria-label="Formular de contact">
+          <div class="field"><input type="text" name="name" placeholder="Nume și prenume" required /></div>
+          <div class="field"><input type="email" name="email" placeholder="Adresă de email" required /></div>
           <div class="field"><input type="tel" placeholder="Telefon (opțional)" /></div>
-          <div class="field"><textarea placeholder="Mesajul tău — câte sticle dorești să rezervi?"></textarea></div>
+          <div class="field"><textarea placeholder="Mesajul tău"></textarea></div>
           <button type="submit" class="btn solid" style="justify-content:center;">
             Trimite rezervarea
             <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -1087,12 +1038,12 @@
           <a href="#poveste">Povestea noastră</a>
           <a href="#vinul">Vinul</a>
           <a href="#colectia">Colecția</a>
-          <a href="#galerie">Galerie</a>
+          <a href="colectie.html">Galerie</a>
           <a href="#contact">Contact</a>
         </div>
         <div class="footer-col">
           <h4>Comenzi</h4>
-          <a href="#colectia">Rezervă sticla</a>
+          <a href="colectie.html">Rezervă sticla</a>
           <a href="#contact">Ambalaj cadou</a>
           <a href="#contact">Mesaj personalizat</a>
           <a href="#contact">Livrare</a>
