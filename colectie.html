@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Galerie foto LISANDRU DeColecție – struguri, vie, cramă, butoaie și pivnița familiei. Imagini din spatele fiecărei sticle." />
-  <title>Galerie foto · LISANDRU DeColecție</title>
+  <meta name="description" content="Alege și rezervă una dintre cele 100 de sticle numerotate LISANDRU DeColecție." />
+  <title>Colecția numerotată · LISANDRU DeColecție</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
@@ -24,6 +24,7 @@
     body { min-height: 100vh; background: var(--black); color: var(--cream); font: 300 16px/1.7 'Jost', sans-serif; -webkit-font-smoothing: antialiased; }
     body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(74,53,39,.38), transparent 68%); }
     a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
     ::selection { background: var(--gold); color: var(--black); }
     .container { width: min(1180px, 90%); margin-inline: auto; }
     .site-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; min-height: 92px; padding-inline: clamp(1.2rem,5vw,3.4rem); border-bottom: 1px solid var(--line); background: rgba(14,13,12,.82); backdrop-filter: blur(14px); }
@@ -34,47 +35,60 @@
     .back-link:hover { color: var(--gold); }
     .back-link svg { width: 16px; height: 16px; }
     main { position: relative; z-index: 1; }
-    .gallery { padding-block: clamp(4rem,8vw,7rem); }
+    .collection { padding-block: clamp(4rem,8vw,7rem); }
+    .picker-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.5rem; }
     .eyebrow { display: inline-block; position: relative; margin-bottom: 1.2rem; padding-left: 3.4rem; color: var(--gold); font-size: .7rem; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; }
     .eyebrow::before { content: ""; position: absolute; left: 0; top: 50%; width: 2.6rem; height: 1px; background: var(--gold); }
-    h1 { max-width: 16ch; color: var(--ivory); font: 400 clamp(2.6rem,6vw,4.6rem)/1.1 'Playfair Display', serif; }
-    h1 em { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
-    .lead { max-width: 60ch; margin-top: 1.2rem; color: var(--muted); font-size: 1.05rem; }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 220px; gap: 1rem; margin-top: clamp(2.5rem,5vw,4rem); }
-    .shot { position: relative; overflow: hidden; border: 1px solid var(--line); grid-column: span 4; grid-row: span 1; }
-    .shot.wide { grid-column: span 6; }
-    .shot.tall { grid-row: span 2; }
-    .shot.big { grid-column: span 6; grid-row: span 2; }
-    .shot .photo { position: absolute; inset: 0; }
-    .shot .photo::after { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(115deg, rgba(255,255,255,.015) 0 2px, transparent 2px 6px); }
-    .shot .glow { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-    .shot .meta { position: absolute; left: 1.2rem; bottom: 1.1rem; z-index: 3; }
-    .shot .meta .k { display: block; color: var(--gold); font-size: .58rem; letter-spacing: .26em; text-transform: uppercase; }
-    .shot .meta .t { display: block; margin-top: .3rem; color: var(--ivory); font: 400 1.35rem 'Cormorant Garamond', serif; font-style: italic; }
-    .shot::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,9,8,.85) 0%, rgba(10,9,8,.15) 45%, transparent 75%); transition: opacity .4s; }
-    .shot:hover::after { opacity: .7; }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: clamp(3rem,6vw,4.5rem); padding-top: clamp(2.5rem,5vw,3.5rem); border-top: 1px solid var(--line); align-items: center; }
-    .cta-row p { flex: 1; min-width: 260px; color: var(--muted); font: 400 1.5rem/1.4 'Cormorant Garamond', serif; font-style: italic; }
-    .btn { display: inline-flex; align-items: center; gap: .7rem; min-height: 50px; padding: .9rem 1.9rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; }
-    .btn.ghost { background: transparent; color: var(--gold); }
-    .btn svg { width: 14px; height: 14px; }
-    footer { position: relative; z-index: 1; padding: 2.4rem clamp(1.2rem,5vw,3.4rem); border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; text-align: center; }
-
-    /* Cinematic tinted backgrounds per subject (no external images) */
-    .p-vie   { background: radial-gradient(ellipse at 30% 20%, rgba(120,150,90,.22), transparent 55%), linear-gradient(150deg, #23281a 0%, #14170e 55%, #0b0c08 100%); }
-    .p-struguri { background: radial-gradient(ellipse at 35% 25%, rgba(120,40,70,.28), transparent 55%), linear-gradient(150deg, #2a1622 0%, #180d13 55%, #0b0808 100%); }
-    .p-crama { background: radial-gradient(ellipse at 30% 20%, rgba(198,162,80,.16), transparent 55%), linear-gradient(150deg, #241e15 0%, #14110c 55%, #0c0a08 100%); }
-    .p-butoaie { background: radial-gradient(ellipse at 30% 20%, rgba(150,90,50,.22), transparent 55%), linear-gradient(150deg, #2a1d12 0%, #17100a 55%, #0b0807 100%); }
-    .p-pivnita { background: radial-gradient(ellipse at 50% 10%, rgba(74,53,39,.4), transparent 60%), linear-gradient(160deg, #1a1510 0%, #100c09 60%, #090706 100%); }
-    .p-cules { background: radial-gradient(ellipse at 30% 20%, rgba(160,120,60,.2), transparent 55%), linear-gradient(150deg, #26200f 0%, #171208 55%, #0b0906 100%); }
-
-    @media (max-width: 860px) {
-      .grid { grid-auto-rows: 180px; }
-      .shot, .shot.wide, .shot.big { grid-column: span 6; }
-    }
-    @media (max-width: 560px) {
-      .grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
-      .shot, .shot.wide, .shot.big, .shot.tall { grid-column: span 1; grid-row: span 1; }
+    h1, h2 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.1; }
+    h1 { max-width: 11ch; color: var(--ivory); font-size: clamp(2.8rem,7vw,5.2rem); }
+    h1 em, h2 em { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+    .lead { max-width: 57ch; margin-top: 1.2rem; color: var(--muted); font-size: 1.05rem; }
+    .summary { display: flex; gap: 2rem; flex-shrink: 0; padding: 1rem 0 1rem 2rem; border-left: 1px solid var(--line); }
+    .summary strong { display: block; color: var(--gold); font: 400 2rem/1 'Playfair Display', serif; }
+    .summary span { display: block; margin-top: .4rem; color: var(--muted); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .filters { display: inline-flex; border: 1px solid var(--line); }
+    .filter { min-height: 42px; padding: .7rem 1rem; border: 0; border-right: 1px solid var(--line); background: transparent; color: var(--muted); font-size: .65rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+    .filter:last-child { border-right: 0; }
+    .filter.active { background: var(--gold); color: var(--black); }
+    .legend { display: flex; gap: 1.2rem; color: var(--muted); font-size: .72rem; }
+    .legend span { display: flex; align-items: center; gap: .45rem; }
+    .legend-dot { width: 8px; height: 8px; border: 1px solid var(--gold); }
+    .legend-dot.reserved { border-color: #6d6860; background: #393631; }
+    .bottle-grid { display: grid; grid-template-columns: repeat(10,minmax(0,1fr)); gap: .65rem; }
+    .bottle-option { min-width: 0; min-height: 116px; padding: .75rem .25rem .6rem; border: 1px solid var(--line); background: rgba(28,26,21,.45); color: var(--cream); cursor: pointer; transition: border-color .25s,background .25s,transform .25s; }
+    .bottle-option:hover:not(:disabled) { border-color: var(--gold); background: rgba(198,162,80,.08); transform: translateY(-3px); }
+    .bottle-option.selected { border-color: var(--gold); background: rgba(198,162,80,.15); box-shadow: inset 0 0 0 1px var(--gold); }
+    .bottle-option:disabled { cursor: not-allowed; opacity: .43; }
+    .mini-bottle { display: block; position: relative; width: 24px; height: 60px; margin: 0 auto .55rem; border: 1px solid rgba(198,162,80,.55); border-radius: 5px 5px 3px 3px; background: linear-gradient(90deg,#0c0b09,#29241b 45%,#0b0a08); }
+    .mini-bottle::before { content: ""; position: absolute; width: 9px; height: 17px; top: -14px; left: 6px; border: 1px solid rgba(198,162,80,.55); border-bottom: 0; background: #15120e; }
+    .mini-bottle::after { content: ""; position: absolute; inset: 23px 3px 8px; border: 1px solid rgba(198,162,80,.55); background: var(--cream); }
+    .bottle-number { display: block; font: 400 .86rem 'Playfair Display', serif; letter-spacing: .08em; }
+    .bottle-state { display: block; min-height: 13px; margin-top: .2rem; color: var(--gold); font-size: .48rem; letter-spacing: .12em; text-transform: uppercase; }
+    .bottle-option:disabled .bottle-state { color: var(--cream); }
+    .selection { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.5rem; padding: 1.3rem 1.5rem; border: 1px solid var(--line); background: var(--panel); }
+    .selection-copy { color: var(--muted); font-size: .82rem; }
+    .selection-copy strong { display: block; color: var(--ivory); font: 400 1.3rem 'Playfair Display', serif; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: .9rem 1.6rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+    .btn[aria-disabled="true"] { opacity: .42; pointer-events: none; }
+    .reservation { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem,7vw,6rem); margin-top: clamp(5rem,10vw,8rem); padding-top: clamp(4rem,8vw,6rem); border-top: 1px solid var(--line); }
+    .reservation h2 { color: var(--ivory); font-size: clamp(2.1rem,5vw,3.5rem); }
+    .reservation-note { max-width: 42ch; margin-top: 1.2rem; color: var(--muted); }
+    form { display: grid; gap: 1rem; }
+    .field input, .field textarea { width: 100%; padding: 1rem 1.1rem; border: 1px solid var(--line); outline: 0; background: transparent; color: var(--cream); }
+    .field input:focus, .field textarea:focus { border-color: var(--gold); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+    .field textarea { min-height: 125px; resize: vertical; }
+    .feedback { min-height: 1.4em; color: var(--gold); font-size: .8rem; }
+    footer { position: relative; z-index: 1; padding: 2rem 5%; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .72rem; }
+    @media (max-width: 900px) { .bottle-grid { grid-template-columns: repeat(5,minmax(0,1fr)); } .reservation { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+      .site-header { min-height: 76px; } .brand { font-size: .95rem; } .brand svg { display: none; } .back-link span { display: none; }
+      .picker-head, .toolbar, .selection { align-items: stretch; flex-direction: column; }
+      .summary { padding: 1rem 0 0; border-left: 0; border-top: 1px solid var(--line); }
+      .filters { display: grid; grid-template-columns: repeat(3,1fr); } .filter { padding-inline: .3rem; }
+      .legend { flex-wrap: wrap; } .bottle-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: .5rem; }
+      .bottle-option { min-height: 108px; } .selection .btn { width: 100%; }
     }
   </style>
 </head>
@@ -88,153 +102,191 @@
   </header>
 
   <main>
-    <section class="gallery">
+    <section class="collection">
       <div class="container">
-        <span class="eyebrow">Galerie foto</span>
-        <h1>Din <em>vie</em> până în pahar.</h1>
-        <p class="lead">Imagini din spatele fiecărei sticle: via de familie, strugurii culeși la timp, crama, butoaiele de stejar și pivnița în care vinul așteaptă răbdător.</p>
-
-        <div class="grid">
-          <figure class="shot big">
-            <div class="photo p-vie">
-              <div class="glow">
-                <svg width="200" height="160" viewBox="0 0 200 160" fill="none" aria-hidden="true">
-                  <path d="M10 120h180M40 120V50M100 120V45M160 120V50" stroke="#C6A250" stroke-opacity=".45" stroke-width="1.2"/>
-                  <path d="M20 55h160M20 80h160" stroke="#C6A250" stroke-opacity=".25" stroke-width="1"/>
-                  <path d="M30 55c8 6 18 6 26 0M74 45c8 8 18 8 26 0M124 55c8 6 18 6 26 0" stroke="#8faa66" stroke-width="1.4"/>
-                  <circle cx="52" cy="70" r="3" fill="#7a2846"/><circle cx="58" cy="76" r="3" fill="#7a2846"/><circle cx="46" cy="76" r="3" fill="#7a2846"/>
-                  <circle cx="100" cy="66" r="3" fill="#7a2846"/><circle cx="106" cy="72" r="3" fill="#7a2846"/><circle cx="94" cy="72" r="3" fill="#7a2846"/>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Via de familie</span><span class="t">Rânduri așezate spre soare-apune</span></figcaption>
-          </figure>
-
-          <figure class="shot tall">
-            <div class="photo p-struguri">
-              <div class="glow">
-                <svg width="120" height="180" viewBox="0 0 120 180" fill="none" aria-hidden="true">
-                  <path d="M60 30c-4-8-2-16 4-20" stroke="#8faa66" stroke-width="2"/>
-                  <path d="M46 34h28l-6 10H52l-6-10z" fill="#3a2a1e"/>
-                  <g fill="#7a2846">
-                    <circle cx="60" cy="58" r="9"/><circle cx="46" cy="66" r="9"/><circle cx="74" cy="66" r="9"/>
-                    <circle cx="54" cy="80" r="9"/><circle cx="66" cy="80" r="9"/><circle cx="40" cy="82" r="9"/><circle cx="80" cy="82" r="9"/>
-                    <circle cx="60" cy="96" r="9"/><circle cx="48" cy="102" r="9"/><circle cx="72" cy="102" r="9"/>
-                    <circle cx="60" cy="116" r="9"/>
-                  </g>
-                  <g fill="#a34063" opacity=".6">
-                    <circle cx="57" cy="55" r="3"/><circle cx="43" cy="63" r="3"/><circle cx="51" cy="77" r="3"/>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Struguri</span><span class="t">Culeși copți, la mână</span></figcaption>
-          </figure>
-
-          <figure class="shot">
-            <div class="photo p-cules">
-              <div class="glow">
-                <svg width="130" height="120" viewBox="0 0 130 120" fill="none" aria-hidden="true">
-                  <path d="M25 60h80l-8 40H33l-8-40z" fill="#2a1d12" stroke="#C6A250" stroke-opacity=".5"/>
-                  <path d="M25 60l8-14h64l8 14" stroke="#C6A250" stroke-opacity=".4"/>
-                  <g fill="#7a2846"><circle cx="50" cy="74" r="6"/><circle cx="64" cy="78" r="6"/><circle cx="78" cy="74" r="6"/><circle cx="58" cy="88" r="6"/><circle cx="72" cy="88" r="6"/></g>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Culesul</span><span class="t">Coșuri pline la răsărit</span></figcaption>
-          </figure>
-
-          <figure class="shot">
-            <div class="photo p-crama">
-              <div class="glow">
-                <svg width="150" height="120" viewBox="0 0 150 120" fill="none" aria-hidden="true">
-                  <path d="M20 100V40l55-24 55 24v60" stroke="#C6A250" stroke-opacity=".5" stroke-width="1.3"/>
-                  <path d="M20 100h110M40 100V60h20v40M90 100V60h20v40" stroke="#C6A250" stroke-opacity=".4"/>
-                  <path d="M62 100V78h26v22" stroke="#C6A250" stroke-opacity=".55"/>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Crama</span><span class="t">Casa vinului nostru</span></figcaption>
-          </figure>
-
-          <figure class="shot wide">
-            <div class="photo p-butoaie">
-              <div class="glow">
-                <svg width="220" height="130" viewBox="0 0 220 130" fill="none" aria-hidden="true">
-                  <g stroke="#C6A250" stroke-opacity=".5" stroke-width="1.3" fill="#2a1d12">
-                    <ellipse cx="55" cy="75" rx="34" ry="42"/>
-                    <ellipse cx="130" cy="75" rx="34" ry="42"/>
-                  </g>
-                  <g stroke="#C6A250" stroke-opacity=".35">
-                    <path d="M24 60h62M24 90h62M99 60h62M99 90h62"/>
-                    <circle cx="55" cy="75" r="9"/><circle cx="130" cy="75" r="9"/>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Butoaie de stejar</span><span class="t">Timpul lucrează în liniște</span></figcaption>
-          </figure>
-
-          <figure class="shot wide">
-            <div class="photo p-pivnita">
-              <div class="glow">
-                <svg width="220" height="130" viewBox="0 0 220 130" fill="none" aria-hidden="true">
-                  <path d="M30 120V50a80 40 0 01160 0v70" stroke="#C6A250" stroke-opacity=".4" stroke-width="1.3"/>
-                  <path d="M70 120V70a40 24 0 0180 0v50" stroke="#C6A250" stroke-opacity=".3"/>
-                  <g fill="#14110c" stroke="#C6A250" stroke-opacity=".5">
-                    <rect x="50" y="86" width="14" height="34" rx="2"/>
-                    <rect x="68" y="86" width="14" height="34" rx="2"/>
-                    <rect x="138" y="86" width="14" height="34" rx="2"/>
-                    <rect x="156" y="86" width="14" height="34" rx="2"/>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Pivnița</span><span class="t">Unde vinul așteaptă răbdător</span></figcaption>
-          </figure>
-
-          <figure class="shot">
-            <div class="photo p-struguri">
-              <div class="glow">
-                <svg width="130" height="120" viewBox="0 0 130 120" fill="none" aria-hidden="true">
-                  <path d="M20 40c30 6 60 6 90 0" stroke="#8faa66" stroke-width="1.6"/>
-                  <path d="M35 44c6 8 14 8 20 0M75 44c6 8 14 8 20 0" stroke="#8faa66" stroke-width="1.4"/>
-                  <g fill="#7a2846"><circle cx="45" cy="66" r="6"/><circle cx="52" cy="74" r="6"/><circle cx="38" cy="74" r="6"/><circle cx="45" cy="84" r="6"/><circle cx="85" cy="66" r="6"/><circle cx="92" cy="74" r="6"/><circle cx="78" cy="74" r="6"/></g>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Vița de vie</span><span class="t">Frunze și ciorchini în august</span></figcaption>
-          </figure>
-
-          <figure class="shot">
-            <div class="photo p-crama">
-              <div class="glow">
-                <svg width="120" height="130" viewBox="0 0 120 130" fill="none" aria-hidden="true">
-                  <path d="M46 14h28l-4 30a10 10 0 01-20 0l-4-30z" fill="#3a0a14" stroke="#C6A250" stroke-opacity=".5"/>
-                  <path d="M60 74v34M44 108h32" stroke="#C6A250" stroke-opacity=".5"/>
-                  <ellipse cx="60" cy="52" rx="14" ry="5" fill="#7a2846" opacity=".7"/>
-                </svg>
-              </div>
-            </div>
-            <figcaption class="meta"><span class="k">Degustare</span><span class="t">Un roșu cu caracter</span></figcaption>
-          </figure>
+        <div class="picker-head">
+          <div>
+            <span class="eyebrow">Lot 01 · 100 exemplare</span>
+            <h1>Alege sticla <em>ta.</em></h1>
+            <p class="lead">Fiecare exemplar poartă propriul număr. Sticlele rezervate rămân vizibile în colecție, dar nu mai pot fi selectate.</p>
+          </div>
+          <div class="summary" aria-live="polite">
+            <div><strong id="availableCount">100</strong><span>Disponibile</span></div>
+            <div><strong id="reservedCount">0</strong><span>Rezervate</span></div>
+          </div>
         </div>
 
-        <div class="cta-row">
-          <p>Fiecare imagine face parte din aceeași poveste — cea din spatele fiecărei sticle numerotate.</p>
-          <a href="colectie.html" class="btn">Alege sticla ta
-            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
-          </a>
-          <a href="index.html#poveste" class="btn ghost">Povestea noastră</a>
+        <div class="toolbar">
+          <div class="filters" role="group" aria-label="Filtrează sticlele">
+            <button class="filter active" type="button" data-filter="all">Toate</button>
+            <button class="filter" type="button" data-filter="available">Disponibile</button>
+            <button class="filter" type="button" data-filter="reserved">Rezervate</button>
+          </div>
+          <div class="legend" aria-label="Legendă disponibilitate">
+            <span><i class="legend-dot"></i> Disponibilă</span>
+            <span><i class="legend-dot reserved"></i> Rezervată</span>
+          </div>
         </div>
+
+        <div class="bottle-grid" id="bottleGrid" aria-label="Colecția de 100 de sticle"></div>
+
+        <div class="selection">
+          <div class="selection-copy" id="selectionCopy" aria-live="polite"><strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.</div>
+          <a class="btn" id="continueReservation" href="#rezervare" aria-disabled="true">Continuă rezervarea</a>
+        </div>
+
+        <section class="reservation" id="rezervare">
+          <div>
+            <span class="eyebrow">Rezervare</span>
+            <h2>Sticla aleasă,<br><em>păstrată pentru tine.</em></h2>
+            <p class="reservation-note">Completează datele, iar noi te vom contacta pentru confirmare, plată și livrare.</p>
+          </div>
+          <form id="reservationForm" aria-label="Formular de rezervare">
+            <div class="field"><input type="text" name="name" placeholder="Nume și prenume" required /></div>
+            <div class="field"><input type="email" name="email" placeholder="Adresă de email" required /></div>
+            <div class="field"><input type="tel" name="phone" placeholder="Telefon (opțional)" /></div>
+            <div class="field"><textarea id="reservationMessage" name="message" placeholder="Mesajul tău"></textarea></div>
+            <input type="hidden" id="selectedBottleInput" name="bottle" />
+            <button class="btn" type="submit">Trimite rezervarea</button>
+            <p class="feedback" id="formFeedback" role="status"></p>
+          </form>
+        </section>
       </div>
     </section>
   </main>
 
   <footer>© <span id="year"></span> LISANDRU DeColecție · Consumul de alcool este interzis minorilor.</footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // Conexiune Supabase (valori publice — protejate prin regulile RLS din baza de date).
+    const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const reservedBottles = new Set();
+    const bottleGrid = document.getElementById('bottleGrid');
+    const selectionCopy = document.getElementById('selectionCopy');
+    const continueReservation = document.getElementById('continueReservation');
+    const selectedBottleInput = document.getElementById('selectedBottleInput');
+    const reservationMessage = document.getElementById('reservationMessage');
+    const formFeedback = document.getElementById('formFeedback');
+    let selectedBottle = null;
+    let activeFilter = 'all';
+
+    const formatBottleNumber = number => String(number).padStart(3, '0');
+
+    async function loadReservations() {
+      try {
+        const { data, error } = await db.from('rezervari').select('bottle');
+        if (error) throw error;
+        reservedBottles.clear();
+        (data || []).forEach(item => reservedBottles.add(Number(item.bottle)));
+      } catch (err) {
+        formFeedback.textContent = 'Nu am putut încărca disponibilitatea. Reîncarcă pagina.';
+      }
+      updateAvailability();
+      renderBottles();
+    }
+
+    function updateAvailability() {
+      document.getElementById('availableCount').textContent = 100 - reservedBottles.size;
+      document.getElementById('reservedCount').textContent = reservedBottles.size;
+    }
+
+    function renderBottles() {
+      bottleGrid.innerHTML = '';
+      for (let number = 1; number <= 100; number += 1) {
+        const isReserved = reservedBottles.has(number);
+        if (activeFilter === 'available' && isReserved) continue;
+        if (activeFilter === 'reserved' && !isReserved) continue;
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = `bottle-option${selectedBottle === number ? ' selected' : ''}`;
+        option.disabled = isReserved;
+        option.dataset.number = number;
+        option.setAttribute('aria-label', `Sticla ${formatBottleNumber(number)} - ${isReserved ? 'rezervată' : 'disponibilă'}`);
+        option.setAttribute('aria-pressed', selectedBottle === number ? 'true' : 'false');
+        option.innerHTML = `<span class="mini-bottle" aria-hidden="true"></span><span class="bottle-number">${formatBottleNumber(number)}</span><span class="bottle-state">${isReserved ? 'Rezervată' : selectedBottle === number ? 'Aleasă' : 'Disponibilă'}</span>`;
+        if (!isReserved) option.addEventListener('click', () => selectBottle(number));
+        bottleGrid.appendChild(option);
+      }
+    }
+
+    function selectBottle(number) {
+      selectedBottle = number;
+      const formattedNumber = formatBottleNumber(number);
+      selectedBottleInput.value = formattedNumber;
+      reservationMessage.value = `Doresc să rezerv sticla nr. ${formattedNumber} din Lotul 01.`;
+      selectionCopy.innerHTML = `<strong>Sticla nr. ${formattedNumber}</strong>Lot 01 · 750 ml · 200 lei`;
+      continueReservation.setAttribute('aria-disabled', 'false');
+      formFeedback.textContent = '';
+      renderBottles();
+    }
+
+    document.querySelectorAll('.filter').forEach(button => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter;
+        document.querySelectorAll('.filter').forEach(item => item.classList.toggle('active', item === button));
+        renderBottles();
+      });
+    });
+
+    document.getElementById('reservationForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!selectedBottle) {
+        formFeedback.textContent = 'Alege mai întâi o sticlă disponibilă.';
+        bottleGrid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const form = event.currentTarget;
+      const submitButton = form.querySelector('button[type="submit"]');
+      const formattedNumber = formatBottleNumber(selectedBottle);
+
+      const detail = {
+        bottle: selectedBottle,
+        nume: (form.name.value || '').trim(),
+        email: (form.email.value || '').trim(),
+        telefon: (form.phone.value || '').trim(),
+        mesaj: (form.message.value || '').trim()
+      };
+
+      submitButton.disabled = true;
+      formFeedback.textContent = 'Se trimite rezervarea…';
+
+      try {
+        const { error } = await db.from('rezervari').insert(detail);
+        if (error) {
+          // 23505 = cheie unică duplicată → sticla e deja rezervată
+          if (error.code === '23505') {
+            formFeedback.textContent = 'Ne pare rău, sticla tocmai a fost rezervată de altcineva. Alege alta.';
+            selectedBottle = null;
+            selectedBottleInput.value = '';
+            selectionCopy.innerHTML = '<strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.';
+            continueReservation.setAttribute('aria-disabled', 'true');
+            await loadReservations();
+            return;
+          }
+          throw error;
+        }
+
+        reservedBottles.add(selectedBottle);
+        selectedBottle = null;
+        selectedBottleInput.value = '';
+        form.reset();
+        selectionCopy.innerHTML = '<strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.';
+        continueReservation.setAttribute('aria-disabled', 'true');
+        formFeedback.textContent = `Sticla nr. ${formattedNumber} a fost rezervată. Te vom contacta pentru confirmare.`;
+        await loadReservations();
+      } catch (err) {
+        formFeedback.textContent = 'A apărut o eroare la trimitere. Încearcă din nou.';
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
     document.getElementById('year').textContent = new Date().getFullYear();
+    loadReservations();
   </script>
 </body>
 </html>
