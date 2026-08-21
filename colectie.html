@@ -111,8 +111,8 @@
             <p class="lead">Fiecare exemplar poartă propriul număr. Sticlele rezervate rămân vizibile în colecție, dar nu mai pot fi selectate.</p>
           </div>
           <div class="summary" aria-live="polite">
-            <div><strong id="availableCount">82</strong><span>Disponibile</span></div>
-            <div><strong id="reservedCount">18</strong><span>Rezervate</span></div>
+            <div><strong id="availableCount">100</strong><span>Disponibile</span></div>
+            <div><strong id="reservedCount">0</strong><span>Rezervate</span></div>
           </div>
         </div>
 
@@ -157,10 +157,14 @@
 
   <footer>© <span id="year"></span> LISANDRU DeColecție · Consumul de alcool este interzis minorilor.</footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const initialReservedBottles = [3, 8, 12, 17, 21, 29, 34, 42, 48, 53, 61, 67, 72, 78, 84, 89, 94, 99];
-    const savedReservations = JSON.parse(localStorage.getItem('lisandruReservations') || '[]');
-    const reservedBottles = new Set([...initialReservedBottles, ...savedReservations]);
+    // Conexiune Supabase (valori publice — protejate prin regulile RLS din baza de date).
+    const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const reservedBottles = new Set();
     const bottleGrid = document.getElementById('bottleGrid');
     const selectionCopy = document.getElementById('selectionCopy');
     const continueReservation = document.getElementById('continueReservation');
@@ -171,6 +175,19 @@
     let activeFilter = 'all';
 
     const formatBottleNumber = number => String(number).padStart(3, '0');
+
+    async function loadReservations() {
+      try {
+        const { data, error } = await db.from('rezervari').select('bottle');
+        if (error) throw error;
+        reservedBottles.clear();
+        (data || []).forEach(item => reservedBottles.add(Number(item.bottle)));
+      } catch (err) {
+        formFeedback.textContent = 'Nu am putut încărca disponibilitatea. Reîncarcă pagina.';
+      }
+      updateAvailability();
+      renderBottles();
+    }
 
     function updateAvailability() {
       document.getElementById('availableCount').textContent = 100 - reservedBottles.size;
@@ -215,29 +232,61 @@
       });
     });
 
-    document.getElementById('reservationForm').addEventListener('submit', event => {
+    document.getElementById('reservationForm').addEventListener('submit', async event => {
       event.preventDefault();
       if (!selectedBottle) {
         formFeedback.textContent = 'Alege mai întâi o sticlă disponibilă.';
         bottleGrid.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
-      reservedBottles.add(selectedBottle);
-      localStorage.setItem('lisandruReservations', JSON.stringify([...reservedBottles].filter(number => !initialReservedBottles.includes(number))));
+      const form = event.currentTarget;
+      const submitButton = form.querySelector('button[type="submit"]');
       const formattedNumber = formatBottleNumber(selectedBottle);
-      selectedBottle = null;
-      selectedBottleInput.value = '';
-      event.currentTarget.reset();
-      selectionCopy.innerHTML = '<strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.';
-      continueReservation.setAttribute('aria-disabled', 'true');
-      formFeedback.textContent = `Sticla nr. ${formattedNumber} a fost rezervată. Te vom contacta pentru confirmare.`;
-      updateAvailability();
-      renderBottles();
+
+      const detail = {
+        bottle: selectedBottle,
+        nume: (form.name.value || '').trim(),
+        email: (form.email.value || '').trim(),
+        telefon: (form.phone.value || '').trim(),
+        mesaj: (form.message.value || '').trim()
+      };
+
+      submitButton.disabled = true;
+      formFeedback.textContent = 'Se trimite rezervarea…';
+
+      try {
+        const { error } = await db.from('rezervari').insert(detail);
+        if (error) {
+          // 23505 = cheie unică duplicată → sticla e deja rezervată
+          if (error.code === '23505') {
+            formFeedback.textContent = 'Ne pare rău, sticla tocmai a fost rezervată de altcineva. Alege alta.';
+            selectedBottle = null;
+            selectedBottleInput.value = '';
+            selectionCopy.innerHTML = '<strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.';
+            continueReservation.setAttribute('aria-disabled', 'true');
+            await loadReservations();
+            return;
+          }
+          throw error;
+        }
+
+        reservedBottles.add(selectedBottle);
+        selectedBottle = null;
+        selectedBottleInput.value = '';
+        form.reset();
+        selectionCopy.innerHTML = '<strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.';
+        continueReservation.setAttribute('aria-disabled', 'true');
+        formFeedback.textContent = `Sticla nr. ${formattedNumber} a fost rezervată. Te vom contacta pentru confirmare.`;
+        await loadReservations();
+      } catch (err) {
+        formFeedback.textContent = 'A apărut o eroare la trimitere. Încearcă din nou.';
+      } finally {
+        submitButton.disabled = false;
+      }
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
-    updateAvailability();
-    renderBottles();
+    loadReservations();
   </script>
 </body>
 </html>
