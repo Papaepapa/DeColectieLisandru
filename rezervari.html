@@ -61,6 +61,16 @@
     .note strong { color: var(--gold); }
     .row-del { border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; padding: .35rem .6rem; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
     .row-del:hover { border-color: #8a4b4b; color: #d69a9a; }
+    .lock { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--black); }
+    .lock::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(74,53,39,.38), transparent 68%); pointer-events: none; }
+    .lock-card { position: relative; width: min(420px, 100%); padding: 2.6rem 2.2rem; border: 1px solid var(--line); background: rgba(28,26,21,.65); text-align: center; }
+    .lock-card svg { width: 40px; height: 40px; margin-bottom: 1.2rem; }
+    .lock-card h2 { color: var(--ivory); font: 400 1.7rem 'Playfair Display', serif; }
+    .lock-card p { margin-top: .6rem; color: var(--muted); font-size: .85rem; }
+    .lock-card input { width: 100%; margin-top: 1.6rem; padding: .85rem 1rem; border: 1px solid var(--line); background: rgba(14,13,12,.6); color: var(--cream); font: 300 1rem 'Jost', sans-serif; text-align: center; letter-spacing: .1em; }
+    .lock-card input:focus { outline: none; border-color: var(--gold); }
+    .lock-card button { width: 100%; margin-top: 1rem; }
+    .lock-error { margin-top: .9rem; min-height: 1rem; color: #d69a9a; font-size: .78rem; letter-spacing: .06em; }
     @media print {
       body::before, .site-header, .toolbar, .note, .row-del, th.col-actions, td.col-actions { display: none !important; }
       body { background: #fff; color: #000; }
@@ -69,6 +79,19 @@
   </style>
 </head>
 <body>
+  <div class="lock" id="lockScreen">
+    <div class="lock-card">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="1.5" stroke="#C6A250" stroke-width="1.3"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#C6A250" stroke-width="1.3"/></svg>
+      <h2>Panou protejat</h2>
+      <p>Introdu parola pentru a vedea rezervările.</p>
+      <form id="lockForm" autocomplete="off">
+        <input type="password" id="lockInput" placeholder="Parolă" aria-label="Parolă" autofocus />
+        <button class="btn solid" type="submit">Intră</button>
+        <div class="lock-error" id="lockError"></div>
+      </form>
+    </div>
+  </div>
+
   <header class="site-header">
     <a href="index.html" class="brand" aria-label="LISANDRU DeColecție - pagina principală">
       <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 3C14 10 12 15 12 21a8 8 0 0016 0c0-6-2-11-8-18zM20 29v8M14 37h12" stroke="#C6A250" stroke-width="1.3"/></svg>
@@ -120,6 +143,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // === Parola panoului (schimb-o cu ce vrei tu) ===
+    const PANEL_PASSWORD = 'anaaremeremaridecandsestie10';
+
+    const lockScreen = document.getElementById('lockScreen');
+    const lockForm = document.getElementById('lockForm');
+    const lockInput = document.getElementById('lockInput');
+    const lockError = document.getElementById('lockError');
+    let unlocked = false;
     const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -201,7 +232,30 @@
     document.getElementById('printBtn').addEventListener('click', () => window.print());
     document.getElementById('exportBtn').addEventListener('click', exportCsv);
 
-    loadReservations();
+    function unlock() {
+      unlocked = true;
+      sessionStorage.setItem('panelUnlocked', '1');
+      lockScreen.style.display = 'none';
+      loadReservations();
+    }
+
+    lockForm.addEventListener('submit', event => {
+      event.preventDefault();
+      if (lockInput.value === PANEL_PASSWORD) {
+        lockError.textContent = '';
+        unlock();
+      } else {
+        lockError.textContent = 'Parolă greșită. Încearcă din nou.';
+        lockInput.value = '';
+        lockInput.focus();
+      }
+    });
+
+    if (sessionStorage.getItem('panelUnlocked') === '1') {
+      unlock();
+    } else {
+      lockInput.focus();
+    }
   </script>
 </body>
 </html>
