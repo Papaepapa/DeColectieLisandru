@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Rezervări · LISANDRU DeColecție</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0e0d0c;
+      --black-soft: #17150f;
+      --panel: #1c1a15;
+      --cream: #ebe3d3;
+      --ivory: #f5f0e6;
+      --gold: #c6a250;
+      --muted: #a69b85;
+      --line: rgba(198,162,80,.22);
+    }
+    body { min-height: 100vh; background: var(--black); color: var(--cream); font: 300 16px/1.6 'Jost', sans-serif; -webkit-font-smoothing: antialiased; }
+    body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(74,53,39,.38), transparent 68%); }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--gold); color: var(--black); }
+    .container { width: min(1180px, 92%); margin-inline: auto; }
+    .site-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; min-height: 92px; padding-inline: clamp(1.2rem,5vw,3.4rem); border-bottom: 1px solid var(--line); background: rgba(14,13,12,.82); backdrop-filter: blur(14px); }
+    .brand { display: flex; align-items: center; gap: .7rem; font: 400 1.25rem 'Playfair Display', serif; letter-spacing: .28em; color: var(--ivory); text-transform: uppercase; }
+    .brand svg { width: 30px; height: 30px; }
+    .brand small { display: block; margin-top: .1rem; color: var(--gold); font: 500 .5rem 'Jost', sans-serif; letter-spacing: .4em; }
+    .back-link { display: inline-flex; align-items: center; gap: .65rem; color: var(--muted); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; transition: color .25s; }
+    .back-link:hover { color: var(--gold); }
+    .back-link svg { width: 16px; height: 16px; }
+    main { position: relative; z-index: 1; padding-block: clamp(3rem,6vw,5rem); }
+    .eyebrow { display: inline-block; position: relative; margin-bottom: 1rem; padding-left: 3.4rem; color: var(--gold); font-size: .7rem; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; position: absolute; left: 0; top: 50%; width: 2.6rem; height: 1px; background: var(--gold); }
+    h1 { color: var(--ivory); font: 400 clamp(2.2rem,5vw,3.4rem)/1.1 'Playfair Display', serif; }
+    h1 em { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .lead { max-width: 60ch; margin-top: .9rem; color: var(--muted); font-size: 1rem; }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin: 2.2rem 0 1.4rem; }
+    .count { color: var(--gold); font: 400 1.4rem 'Playfair Display', serif; }
+    .count span { color: var(--muted); font: 300 .8rem 'Jost', sans-serif; letter-spacing: .12em; }
+    .spacer { flex: 1; }
+    .btn { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; padding: .7rem 1.3rem; border: 1px solid var(--gold); background: transparent; color: var(--gold); font: 500 .68rem 'Jost', sans-serif; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; transition: background .25s, color .25s; }
+    .btn:hover { background: var(--gold); color: var(--black); }
+    .btn.solid { background: var(--gold); color: var(--black); }
+    .btn.danger { border-color: #8a4b4b; color: #d69a9a; }
+    .btn.danger:hover { background: #8a4b4b; color: var(--ivory); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    thead th { position: sticky; top: 0; background: var(--panel); color: var(--gold); text-align: left; font: 500 .62rem 'Jost', sans-serif; letter-spacing: .2em; text-transform: uppercase; padding: 1rem 1.1rem; border-bottom: 1px solid var(--line); }
+    tbody td { padding: 1rem 1.1rem; border-bottom: 1px solid var(--line); color: var(--cream); font-size: .9rem; vertical-align: top; }
+    tbody tr:hover { background: rgba(198,162,80,.05); }
+    .bottle-cell { font: 400 1.05rem 'Playfair Display', serif; color: var(--gold); white-space: nowrap; }
+    .muted { color: var(--muted); }
+    .msg { max-width: 32ch; color: var(--muted); font-size: .82rem; }
+    .empty { padding: 3.5rem 1.5rem; text-align: center; color: var(--muted); border: 1px dashed var(--line); }
+    .empty strong { display: block; margin-bottom: .5rem; color: var(--ivory); font: 400 1.4rem 'Cormorant Garamond', serif; font-style: italic; }
+    .note { margin-top: 1.6rem; padding: 1.1rem 1.3rem; border: 1px solid var(--line); background: rgba(28,26,21,.5); color: var(--muted); font-size: .82rem; }
+    .note strong { color: var(--gold); }
+    .row-del { border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; padding: .35rem .6rem; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+    .row-del:hover { border-color: #8a4b4b; color: #d69a9a; }
+    @media print {
+      body::before, .site-header, .toolbar, .note, .row-del, th.col-actions, td.col-actions { display: none !important; }
+      body { background: #fff; color: #000; }
+      table, thead th, tbody td { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="brand" aria-label="LISANDRU DeColecție - pagina principală">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 3C14 10 12 15 12 21a8 8 0 0016 0c0-6-2-11-8-18zM20 29v8M14 37h12" stroke="#C6A250" stroke-width="1.3"/></svg>
+      <span>LISANDRU<small>DeColecție</small></span>
+    </a>
+    <a href="colectie.html" class="back-link"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.6"/></svg><span>Înapoi la colecție</span></a>
+  </header>
+
+  <main>
+    <div class="container">
+      <span class="eyebrow">Panou intern</span>
+      <h1>Cine a rezervat <em>ce sticlă.</em></h1>
+      <p class="lead">Lista rezervărilor trimise prin formular, în ordinea în care au sosit. Poți exporta lista în CSV (se deschide în Excel) sau o poți tipări.</p>
+
+      <div class="toolbar">
+        <div class="count"><span id="countLabel">0 rezervări</span></div>
+        <div class="spacer"></div>
+        <button class="btn" id="refreshBtn" type="button">Reîmprospătează</button>
+        <button class="btn" id="printBtn" type="button">Tipărește</button>
+        <button class="btn solid" id="exportBtn" type="button">Export CSV</button>
+      </div>
+
+      <div class="table-wrap" id="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sticla</th>
+              <th>Nume</th>
+              <th>Email</th>
+              <th>Telefon</th>
+              <th>Mesaj</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="empty" id="emptyState" hidden>
+        <strong>Nicio rezervare încă.</strong>
+        Rezervările apar aici după ce cineva completează formularul de pe pagina <a href="colectie.html" style="color:var(--gold)">Colecția</a>.
+      </div>
+
+      <div class="note">
+        <strong>Important:</strong> rezervările sunt salvate central în baza de date Supabase și sunt vizibile de pe orice dispozitiv. Pentru a șterge o rezervare, intră în Supabase → Table Editor → tabelul <em>rezervari</em> și șterge rândul dorit.
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const tbody = document.getElementById('tbody');
+    const emptyState = document.getElementById('emptyState');
+    const tableWrap = document.getElementById('tableWrap');
+    const countLabel = document.getElementById('countLabel');
+
+    let reservations = [];
+
+    const escapeHtml = value => String(value ?? '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    const formatDate = iso => {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return '—';
+      return d.toLocaleString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    };
+
+    async function loadReservations() {
+      countLabel.textContent = 'Se încarcă…';
+      try {
+        const { data, error } = await db.from('rezervari').select('*').order('data', { ascending: true });
+        if (error) throw error;
+        reservations = data || [];
+      } catch (err) {
+        reservations = [];
+        countLabel.textContent = 'Eroare la încărcare';
+        tableWrap.hidden = true;
+        emptyState.hidden = false;
+        return;
+      }
+      render();
+    }
+
+    function render() {
+      const list = reservations;
+      countLabel.textContent = `${list.length} ${list.length === 1 ? 'rezervare' : 'rezervări'}`;
+
+      if (!list.length) {
+        tableWrap.hidden = true;
+        emptyState.hidden = false;
+        return;
+      }
+      tableWrap.hidden = false;
+      emptyState.hidden = true;
+
+      tbody.innerHTML = list.map(r => `
+        <tr>
+          <td class="bottle-cell">Nr. ${escapeHtml(String(r.bottle).padStart(3, '0'))}</td>
+          <td>${escapeHtml(r.nume) || '<span class="muted">—</span>'}</td>
+          <td>${r.email ? `<a href="mailto:${escapeHtml(r.email)}" style="color:var(--gold)">${escapeHtml(r.email)}</a>` : '<span class="muted">—</span>'}</td>
+          <td>${escapeHtml(r.telefon) || '<span class="muted">—</span>'}</td>
+          <td class="msg">${escapeHtml(r.mesaj) || '<span class="muted">—</span>'}</td>
+          <td class="muted">${escapeHtml(formatDate(r.data))}</td>
+        </tr>
+      `).join('');
+    }
+
+    function exportCsv() {
+      if (!reservations.length) return;
+      const headers = ['Sticla', 'Nume', 'Email', 'Telefon', 'Mesaj', 'Data'];
+      const csvCell = value => `"${String(value ?? '').replace(/"/g, '""')}"`;
+      const rows = reservations.map(r => [String(r.bottle).padStart(3, '0'), r.nume, r.email, r.telefon, r.mesaj, formatDate(r.data)].map(csvCell).join(','));
+      const csv = '\uFEFF' + [headers.map(csvCell).join(','), ...rows].join('\r\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `rezervari-lisandru-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('refreshBtn').addEventListener('click', loadReservations);
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    document.getElementById('exportBtn').addEventListener('click', exportCsv);
+
+    loadReservations();
+  </script>
+</body>
+</html>
