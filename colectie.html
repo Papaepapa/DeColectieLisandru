@@ -176,7 +176,7 @@
     <div class="bottle-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalBottleTitle">
       <button class="bottle-modal-close" id="modalCloseTop" type="button" aria-label="Închide detaliile">✕</button>
       <div class="bottle-modal-grid">
-        <img id="modalBottleImage" src="./5a1cadd1-4b40-4a98-8f2f-554d9c525758.png" alt="Preview sticla selectata" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='./poza.webp';" />
+        <img id="modalBottleImage" src="./5a1cadd1-4b40-4a98-8f2f-554d9c525758.png" alt="Preview sticla selectata" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='./5a1cadd1-4b40-4a98-8f2f-554d9c525758.png';" />
         <div class="bottle-modal-copy">
           <h3 id="modalBottleTitle">Sticla 000</h3>
           <p id="modalBottleMeta">Disponibila · Lot 01 · 750 ml · valoare inestimabila</p>
@@ -227,7 +227,7 @@
         bottleImageSrc = './5a1cadd1-4b40-4a98-8f2f-554d9c525758.png';
       };
       probe.onerror = () => {
-        bottleImageSrc = './poza.webp';
+        bottleImageSrc = './5a1cadd1-4b40-4a98-8f2f-554d9c525758.png';
         modalBottleImage.src = bottleImageSrc;
         renderBottles();
       };
@@ -313,7 +313,7 @@
         option.setAttribute('aria-disabled', isReserved ? 'true' : 'false');
         option.setAttribute('aria-pressed', selectedBottle === number ? 'true' : 'false');
         const bottleStatus = isReserved ? 'Rezervata' : selectedBottle === number ? 'Aleasa' : 'Disponibila';
-        option.innerHTML = `<span class="mini-bottle" aria-hidden="true"></span><span class="bottle-number">${formatBottleNumber(number)}</span><span class="bottle-state">${isReserved ? 'Rezervată' : selectedBottle === number ? 'Aleasă' : 'Disponibilă'}</span><span class="bottle-tooltip" aria-hidden="true"><img src="${bottleImageSrc}" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='./poza.webp';"><strong>Sticla ${formatBottleNumber(number)}</strong><small>${bottleStatus} · Lot 01 · 750 ml · valoare inestimabila</small><em>${getBottleProfile(number)}</em></span>`;
+        option.innerHTML = `<span class="mini-bottle" aria-hidden="true"></span><span class="bottle-number">${formatBottleNumber(number)}</span><span class="bottle-state">${isReserved ? 'Rezervată' : selectedBottle === number ? 'Aleasă' : 'Disponibilă'}</span><span class="bottle-tooltip" aria-hidden="true"><img src="${bottleImageSrc}" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='./5a1cadd1-4b40-4a98-8f2f-554d9c525758.png';"><strong>Sticla ${formatBottleNumber(number)}</strong><small>${bottleStatus} · Lot 01 · 750 ml · valoare inestimabila</small><em>${getBottleProfile(number)}</em></span>`;
         option.addEventListener('click', () => openBottleModal(number));
         bottleGrid.appendChild(option);
       }
