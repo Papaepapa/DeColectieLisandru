@@ -56,20 +56,34 @@
     .legend-dot { width: 8px; height: 8px; border: 1px solid var(--gold); }
     .legend-dot.reserved { border-color: #6d6860; background: #393631; }
     .bottle-grid { display: grid; grid-template-columns: repeat(10,minmax(0,1fr)); gap: .65rem; }
-    .bottle-option { min-width: 0; min-height: 116px; padding: .75rem .25rem .6rem; border: 1px solid var(--line); background: rgba(28,26,21,.45); color: var(--cream); cursor: pointer; transition: border-color .25s,background .25s,transform .25s; }
-    .bottle-option:hover:not(:disabled) { border-color: var(--gold); background: rgba(198,162,80,.08); transform: translateY(-3px); }
+    .bottle-option { position: relative; min-width: 0; min-height: 116px; padding: .75rem .25rem .6rem; border: 1px solid var(--line); background: rgba(28,26,21,.45); color: var(--cream); cursor: pointer; transition: border-color .25s,background .25s,transform .25s; }
+    .bottle-option:hover:not(.is-reserved),
+    .bottle-option:focus-visible:not(.is-reserved) { border-color: var(--gold); background: rgba(198,162,80,.08); transform: translateY(-3px); }
+    .bottle-option:hover .bottle-tooltip,
+    .bottle-option:focus-visible .bottle-tooltip { opacity: 1; transform: translate(-50%, calc(-100% - .55rem)); }
     .bottle-option.selected { border-color: var(--gold); background: rgba(198,162,80,.15); box-shadow: inset 0 0 0 1px var(--gold); }
-    .bottle-option:disabled { cursor: not-allowed; opacity: .43; }
+    .bottle-option[aria-disabled="true"] { cursor: not-allowed; opacity: .43; }
     .mini-bottle { display: block; position: relative; width: 24px; height: 60px; margin: 0 auto .55rem; border: 1px solid rgba(198,162,80,.55); border-radius: 5px 5px 3px 3px; background: linear-gradient(90deg,#0c0b09,#29241b 45%,#0b0a08); }
     .mini-bottle::before { content: ""; position: absolute; width: 9px; height: 17px; top: -14px; left: 6px; border: 1px solid rgba(198,162,80,.55); border-bottom: 0; background: #15120e; }
     .mini-bottle::after { content: ""; position: absolute; inset: 23px 3px 8px; border: 1px solid rgba(198,162,80,.55); background: var(--cream); }
     .bottle-number { display: block; font: 400 .86rem 'Playfair Display', serif; letter-spacing: .08em; }
     .bottle-state { display: block; min-height: 13px; margin-top: .2rem; color: var(--gold); font-size: .48rem; letter-spacing: .12em; text-transform: uppercase; }
-    .bottle-option:disabled .bottle-state { color: var(--cream); }
-    .selection { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.5rem; padding: 1.3rem 1.5rem; border: 1px solid var(--line); background: var(--panel); }
-    .selection-copy { color: var(--muted); font-size: .82rem; }
-    .selection-copy strong { display: block; color: var(--ivory); font: 400 1.3rem 'Playfair Display', serif; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: .9rem 1.6rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+    .bottle-option[aria-disabled="true"] .bottle-state { color: var(--cream); }
+    .bottle-tooltip { position: absolute; left: 50%; top: 0; z-index: 6; width: 270px; padding: .8rem .9rem .9rem; border: 1px solid rgba(198,162,80,.42); background: rgba(14,13,12,.96); color: var(--cream); text-align: left; opacity: 0; pointer-events: none; transform: translate(-50%, calc(-100% - .25rem)); transition: opacity .2s, transform .2s; }
+    .bottle-tooltip::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 10px; height: 10px; border-right: 1px solid rgba(198,162,80,.42); border-bottom: 1px solid rgba(198,162,80,.42); background: rgba(14,13,12,.96); transform: translateX(-50%) rotate(45deg); }
+    .bottle-tooltip strong { display: block; margin-bottom: .3rem; color: var(--ivory); font: 400 .95rem/1.2 'Playfair Display', serif; letter-spacing: .08em; }
+    .bottle-tooltip img { display: block; width: 100%; height: 176px; margin-bottom: .6rem; border: 1px solid rgba(198,162,80,.38); background: #0f0e0b; object-fit: contain; object-position: center; }
+    .bottle-tooltip small { display: block; color: var(--muted); font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; }
+    .bottle-tooltip em { display: block; margin-top: .25rem; color: var(--gold); font: italic 400 .82rem/1.35 'Cormorant Garamond', serif; letter-spacing: .02em; }
+    .bottle-detail-panel { display: grid; grid-template-columns: 240px 1fr; align-items: center; gap: 1.3rem; margin-top: 1.4rem; padding: 1.2rem 1.3rem; border: 1px solid var(--line); background: rgba(28,26,21,.85); }
+    .bottle-detail-panel img { width: 100%; height: 170px; border: 1px solid rgba(198,162,80,.38); background: #0f0e0b; object-fit: contain; object-position: center; }
+    .bottle-detail-copy strong { display: block; color: var(--ivory); font: 400 1.38rem/1.2 'Playfair Display', serif; }
+    .bottle-detail-copy small { display: block; margin-top: .38rem; color: var(--muted); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+    .bottle-detail-copy em { display: block; margin-top: .42rem; color: var(--gold); font: italic 400 1.16rem/1.35 'Cormorant Garamond', serif; }
+    .selection { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 1.9rem; padding: 1.6rem 1.9rem; border: 1px solid var(--line); background: var(--panel); }
+    .selection-copy { color: var(--muted); font-size: .96rem; }
+    .selection-copy strong { display: block; color: var(--ivory); font: 400 1.65rem 'Playfair Display', serif; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 1rem 2rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .74rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
     .btn[aria-disabled="true"] { opacity: .42; pointer-events: none; }
     .reservation { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem,7vw,6rem); margin-top: clamp(5rem,10vw,8rem); padding-top: clamp(4rem,8vw,6rem); border-top: 1px solid var(--line); }
     .reservation h2 { color: var(--ivory); font-size: clamp(2.1rem,5vw,3.5rem); }
@@ -89,6 +103,8 @@
       .filters { display: grid; grid-template-columns: repeat(3,1fr); } .filter { padding-inline: .3rem; }
       .legend { flex-wrap: wrap; } .bottle-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: .5rem; }
       .bottle-option { min-height: 108px; } .selection .btn { width: 100%; }
+      .bottle-detail-panel { grid-template-columns: 1fr; }
+      .bottle-tooltip { display: none; }
     }
   </style>
 </head>
@@ -129,6 +145,14 @@
         </div>
 
         <div class="bottle-grid" id="bottleGrid" aria-label="Colecția de 100 de sticle"></div>
+        <div class="bottle-detail-panel" id="bottleDetailPanel" aria-live="polite">
+          <img id="detailImage" src="5a1cadd1-4b40-4a98-8f2f-554d9c525758.png" alt="Preview sticla LISANDRU" loading="lazy" decoding="async" />
+          <div class="bottle-detail-copy">
+            <strong id="detailTitle">Detalii sticla</strong>
+            <small id="detailMeta">Treci cu mouse-ul peste o sticla sau foloseste tastatura pentru focus.</small>
+            <em id="detailProfile">Sticlele rezervate afiseaza detalii, dar nu pot fi selectate.</em>
+          </div>
+        </div>
 
         <div class="selection">
           <div class="selection-copy" id="selectionCopy" aria-live="polite"><strong>Nicio sticlă selectată</strong>Alege un număr disponibil din colecție.</div>
@@ -171,10 +195,54 @@
     const selectedBottleInput = document.getElementById('selectedBottleInput');
     const reservationMessage = document.getElementById('reservationMessage');
     const formFeedback = document.getElementById('formFeedback');
+    const detailImage = document.getElementById('detailImage');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailMeta = document.getElementById('detailMeta');
+    const detailProfile = document.getElementById('detailProfile');
     let selectedBottle = null;
     let activeFilter = 'all';
+    const bottleImageSrc = '5a1cadd1-4b40-4a98-8f2f-554d9c525758.png';
 
     const formatBottleNumber = number => String(number).padStart(3, '0');
+
+    function getBottleProfile(number) {
+      if (number <= 25) return '001-025 · Vanilie, stejar fin, final catifelat';
+      if (number <= 50) return '026-050 · Fructe uscate, cacao, condimente calde';
+      if (number <= 75) return '051-075 · Miere, iasomie, piper alb, note florale';
+      return '076-100 · Pruna coapta, nucsoara, final prelung';
+    }
+
+    function getBottleDetails(number) {
+      const isReserved = reservedBottles.has(number);
+      const status = isReserved ? 'Rezervata' : selectedBottle === number ? 'Aleasa' : 'Disponibila';
+      return {
+        number: formatBottleNumber(number),
+        status,
+        profile: getBottleProfile(number),
+        lot: 'Lot 01',
+        volume: '750 ml',
+        price: 'valoare inestimabila'
+      };
+    }
+
+    function updateBottleDetails(number) {
+      const details = getBottleDetails(number);
+      detailImage.src = bottleImageSrc;
+      detailTitle.textContent = `Sticla ${details.number}`;
+      detailMeta.textContent = `${details.status} · ${details.lot} · ${details.volume} · ${details.price}`;
+      detailProfile.textContent = details.profile;
+    }
+
+    function resetBottleDetails() {
+      if (selectedBottle) {
+        updateBottleDetails(selectedBottle);
+        return;
+      }
+      detailImage.src = bottleImageSrc;
+      detailTitle.textContent = 'Detalii sticla';
+      detailMeta.textContent = 'Treci cu mouse-ul peste o sticla sau foloseste tastatura pentru focus.';
+      detailProfile.textContent = 'Sticlele rezervate afiseaza detalii, dar nu pot fi selectate.';
+    }
 
     async function loadReservations() {
       try {
@@ -202,15 +270,24 @@
         if (activeFilter === 'reserved' && !isReserved) continue;
         const option = document.createElement('button');
         option.type = 'button';
-        option.className = `bottle-option${selectedBottle === number ? ' selected' : ''}`;
-        option.disabled = isReserved;
+        option.className = `bottle-option${selectedBottle === number ? ' selected' : ''}${isReserved ? ' is-reserved' : ''}`;
         option.dataset.number = number;
         option.setAttribute('aria-label', `Sticla ${formatBottleNumber(number)} - ${isReserved ? 'rezervată' : 'disponibilă'}`);
+        option.setAttribute('aria-disabled', isReserved ? 'true' : 'false');
         option.setAttribute('aria-pressed', selectedBottle === number ? 'true' : 'false');
-        option.innerHTML = `<span class="mini-bottle" aria-hidden="true"></span><span class="bottle-number">${formatBottleNumber(number)}</span><span class="bottle-state">${isReserved ? 'Rezervată' : selectedBottle === number ? 'Aleasă' : 'Disponibilă'}</span>`;
-        if (!isReserved) option.addEventListener('click', () => selectBottle(number));
+        const bottleStatus = isReserved ? 'Rezervata' : selectedBottle === number ? 'Aleasa' : 'Disponibila';
+        option.innerHTML = `<span class="mini-bottle" aria-hidden="true"></span><span class="bottle-number">${formatBottleNumber(number)}</span><span class="bottle-state">${isReserved ? 'Rezervată' : selectedBottle === number ? 'Aleasă' : 'Disponibilă'}</span><span class="bottle-tooltip" aria-hidden="true"><img src="${bottleImageSrc}" alt="" loading="lazy" decoding="async"><strong>Sticla ${formatBottleNumber(number)}</strong><small>${bottleStatus} · Lot 01 · 750 ml · valoare inestimabila</small><em>${getBottleProfile(number)}</em></span>`;
+        option.addEventListener('mouseenter', () => updateBottleDetails(number));
+        option.addEventListener('focus', () => updateBottleDetails(number));
+        option.addEventListener('mouseleave', resetBottleDetails);
+        option.addEventListener('blur', resetBottleDetails);
+        option.addEventListener('click', () => {
+          if (isReserved) return;
+          selectBottle(number);
+        });
         bottleGrid.appendChild(option);
       }
+      resetBottleDetails();
     }
 
     function selectBottle(number) {
@@ -218,9 +295,10 @@
       const formattedNumber = formatBottleNumber(number);
       selectedBottleInput.value = formattedNumber;
       reservationMessage.value = `Doresc să rezerv sticla nr. ${formattedNumber} din Lotul 01.`;
-      selectionCopy.innerHTML = `<strong>Sticla nr. ${formattedNumber}</strong>Lot 01 · 750 ml · 200 lei`;
+      selectionCopy.innerHTML = `<strong>Sticla nr. ${formattedNumber}</strong>Lot 01 · 750 ml · valoare inestimabila`;
       continueReservation.setAttribute('aria-disabled', 'false');
       formFeedback.textContent = '';
+      updateBottleDetails(number);
       renderBottles();
     }
 
