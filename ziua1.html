@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ZIUA 1 LISANDRU DeColecție: gustă mustul recoltei înainte să devină vin." />
+  <title>ZIUA 1 · Mustul Recoltei · LISANDRU DeColecție</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0e0d0c;
+      --black-soft: #17150f;
+      --panel: #1c1a15;
+      --cream: #ebe3d3;
+      --ivory: #f5f0e6;
+      --gold: #c6a250;
+      --muted: #a69b85;
+      --line: rgba(198,162,80,.22);
+      --closed: #9a7770;
+    }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; background: var(--black); color: var(--cream); font: 300 16px/1.7 'Jost', sans-serif; -webkit-font-smoothing: antialiased; }
+    body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(74,53,39,.38), transparent 68%); }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { background: var(--gold); color: var(--black); }
+    .container { width: min(1180px, 90%); margin-inline: auto; }
+    .site-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; min-height: 92px; padding-inline: clamp(1.2rem,5vw,3.4rem); border-bottom: 1px solid var(--line); background: rgba(14,13,12,.82); backdrop-filter: blur(14px); }
+    .brand { display: flex; align-items: center; gap: .7rem; font: 400 1.25rem 'Playfair Display', serif; letter-spacing: .28em; color: var(--ivory); text-transform: uppercase; }
+    .brand svg { width: 30px; height: 30px; }
+    .brand small { display: block; margin-top: .1rem; color: var(--gold); font: 500 .5rem 'Jost', sans-serif; letter-spacing: .4em; }
+    .back-link { display: inline-flex; align-items: center; gap: .65rem; color: var(--muted); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
+    .back-link:hover { color: var(--gold); }
+    .back-link svg { width: 16px; height: 16px; }
+    main { position: relative; z-index: 1; }
+    .hero { padding-block: clamp(4rem,9vw,8rem) clamp(3.5rem,8vw,6rem); }
+    .hero-grid { display: grid; grid-template-columns: 1fr .85fr; gap: clamp(2.5rem,7vw,7rem); align-items: center; }
+    .eyebrow { display: inline-block; position: relative; margin-bottom: 1.2rem; padding-left: 3.4rem; color: var(--gold); font-size: .7rem; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; position: absolute; left: 0; top: 50%; width: 2.6rem; height: 1px; background: var(--gold); }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.1; }
+    h1 { color: var(--ivory); font-size: clamp(3.8rem,10vw,7rem); letter-spacing: .04em; }
+    h1 em, h2 em, h3 em { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+    .subtitle { margin-top: .2rem; color: var(--gold); font: italic 400 clamp(1.8rem,4vw,3rem)/1.1 'Cormorant Garamond', serif; }
+    .lead { max-width: 53ch; margin-top: 1.7rem; color: var(--muted); font-size: 1.08rem; }
+    .lead strong { color: var(--cream); font-weight: 400; }
+    .window { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
+    .status { display: inline-flex; align-items: center; gap: .5rem; color: var(--gold); font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+    .status.closed { color: var(--closed); }
+    .status.closed::before { background: var(--closed); box-shadow: none; }
+    .countdown { margin-top: 2rem; }
+    .countdown-label { color: var(--muted); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; }
+    .countdown-grid { display: flex; gap: clamp(1rem,3vw,2.2rem); margin-top: .6rem; }
+    .countdown-unit strong { display: block; color: var(--ivory); font: 400 clamp(2rem,5vw,3.2rem)/1 'Playfair Display', serif; }
+    .countdown-unit span { display: block; margin-top: .35rem; color: var(--gold); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; }
+    .countdown.closed .countdown-label { color: var(--closed); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 54px; margin-top: 2rem; padding: 1rem 1.8rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: background .25s, color .25s; }
+    .btn:hover { background: var(--ivory); border-color: var(--ivory); }
+    .btn[aria-disabled="true"] { background: transparent; border-color: var(--line); color: var(--muted); cursor: not-allowed; pointer-events: none; }
+    .hero-image { position: relative; min-height: 480px; display: grid; place-items: center; border: 1px solid var(--line); background: radial-gradient(ellipse at 50% 30%, rgba(198,162,80,.15), transparent 55%), linear-gradient(160deg, #241e15, #0e0d0c); overflow: hidden; }
+    .hero-image::before, .hero-image::after { content: ""; position: absolute; border: 1px solid var(--line); border-radius: 50%; }
+    .hero-image::before { width: 350px; height: 350px; }
+    .hero-image::after { width: 250px; height: 250px; border-color: rgba(198,162,80,.12); }
+    .hero-image img { position: relative; z-index: 1; width: min(72%, 360px); max-height: 440px; object-fit: contain; filter: drop-shadow(0 30px 35px rgba(0,0,0,.65)); }
+    .section { padding-block: clamp(4rem,8vw,7rem); background: var(--black-soft); }
+    .section-title { color: var(--ivory); font-size: clamp(2.2rem,5vw,4rem); }
+    .description { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2rem,7vw,7rem); align-items: start; }
+    .description-copy p { margin-top: 1rem; color: var(--muted); }
+    .description-copy p:first-of-type { margin-top: 1.6rem; }
+    .description-copy p strong { color: var(--cream); font-weight: 400; }
+    .note { padding: 1.4rem 1.5rem; border-left: 1px solid var(--gold); background: rgba(198,162,80,.06); color: var(--cream); font: italic 400 1.35rem/1.35 'Cormorant Garamond', serif; }
+    .note small { display: block; margin-top: .8rem; color: var(--gold); font: 500 .62rem 'Jost', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    .process { padding-block: clamp(4rem,8vw,7rem); }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
+    .process-step { min-height: 200px; padding: 1.8rem; border: 1px solid var(--line); background: rgba(28,26,21,.45); }
+    .process-step span { color: var(--gold); font: 400 1.2rem 'Playfair Display', serif; }
+    .process-step h3 { margin-top: 1.5rem; color: var(--ivory); font-size: 1.45rem; }
+    .process-step p { margin-top: .55rem; color: var(--muted); font-size: .9rem; }
+    .gallery { background: var(--black-soft); }
+    .gallery-grid { display: grid; grid-template-columns: 1.2fr .8fr .8fr; gap: 1rem; margin-top: 2.5rem; }
+    .gallery-item { position: relative; min-height: 260px; overflow: hidden; border: 1px solid var(--line); background: #0f0e0b; }
+    .gallery-item:first-child { min-height: 360px; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item figcaption { position: absolute; right: 1rem; bottom: .8rem; left: 1rem; color: var(--ivory); font: italic 400 1.15rem 'Cormorant Garamond', serif; text-shadow: 0 2px 8px #000; }
+    .cta { padding-block: clamp(4rem,8vw,7rem); text-align: center; }
+    .cta p { max-width: 42ch; margin: 1rem auto 0; color: var(--muted); }
+    footer { position: relative; z-index: 1; padding: 2rem 5%; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .72rem; }
+    @media (max-width: 800px) { .hero-grid, .description { grid-template-columns: 1fr; } .hero-image { min-height: 360px; order: -1; } .process-grid { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr 1fr; } .gallery-item:first-child { grid-column: span 2; } }
+    @media (max-width: 560px) { .site-header { min-height: 76px; } .brand { font-size: .95rem; } .brand svg { display: none; } .back-link span { display: none; } .gallery-grid { grid-template-columns: 1fr; } .gallery-item:first-child { grid-column: auto; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html#acasa" class="brand" aria-label="LISANDRU DeColecție - pagina principală">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 3C14 10 12 15 12 21a8 8 0 0016 0c0-6-2-11-8-18zM20 29v8M14 37h12" stroke="#C6A250" stroke-width="1.3"/></svg>
+      <span>LISANDRU<small>DeColecție</small></span>
+    </a>
+    <a href="recolta.html" class="back-link"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.6"/></svg><span>Înapoi la recoltă</span></a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow" id="harvestLabel">Recolta · Must proaspăt</span>
+          <h1>ZIUA 1</h1>
+          <p class="subtitle">Mustul Recoltei</p>
+          <p class="lead">O săptămână în care poți gusta recolta înainte să devină vin.</p>
+          <div class="window">
+            <span class="status" id="harvestStatus">Se verifică disponibilitatea</span>
+            <span id="availabilityWindow">Perioada disponibilității</span>
+          </div>
+          <div class="countdown" id="countdown" aria-live="polite">
+            <span class="countdown-label" id="countdownLabel">Timp rămas până la închiderea perioadei</span>
+            <div class="countdown-grid">
+              <div class="countdown-unit"><strong id="days">00</strong><span>Zile</span></div>
+              <div class="countdown-unit"><strong id="hours">00</strong><span>Ore</span></div>
+              <div class="countdown-unit"><strong id="minutes">00</strong><span>Minute</span></div>
+              <div class="countdown-unit"><strong id="seconds">00</strong><span>Secunde</span></div>
+            </div>
+          </div>
+          <a class="btn" id="orderMust" href="mailto:rezervari@lisandru.ro">COMANDĂ MUST</a>
+        </div>
+        <figure class="hero-image">
+          <img src="poza.webp" alt="Sticlă LISANDRU DeColecție" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container description">
+        <div>
+          <span class="eyebrow">Înainte de vin</span>
+          <h2 class="section-title">Gustul celor <em>șapte zile.</em></h2>
+        </div>
+        <div class="description-copy">
+          <p>În fiecare an există un moment scurt în care strugurii nu mai sunt struguri, dar încă nu sunt vin.</p>
+          <p>Este momentul mustului.</p>
+          <p><strong>LISANDRU îl oferă doar în perioada recoltei, timp de o săptămână.</strong></p>
+          <div class="note">Consum recomandat în maximum 24 de ore.<small id="mustNoteLabel">Must proaspăt · Recolta</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process">
+      <div class="container">
+        <span class="eyebrow">Procesul recoltei</span>
+        <h2 class="section-title">De la ciorchine la <em>must.</em></h2>
+        <div class="process-grid">
+          <article class="process-step"><span>01</span><h3>Cules la timp</h3><p>Strugurii sunt aleși în dimineața recoltei, când prospețimea lor este la maximum.</p></article>
+          <article class="process-step"><span>02</span><h3>Presare blândă</h3><p>Fructul este transformat cu grijă, păstrând caracterul viu al recoltei.</p></article>
+          <article class="process-step"><span>03</span><h3>Șapte zile</h3><p>Mustul ajunge la tine înainte ca timpul să îl transforme în vin.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery">
+      <div class="container">
+        <span class="eyebrow">Galerie foto</span>
+        <h2 class="section-title">Recolta în <em>imagini.</em></h2>
+        <div class="gallery-grid">
+          <figure class="gallery-item"><img src="poza.webp" alt="Sticla LISANDRU DeColecție" loading="lazy" /><figcaption>Ce va deveni mustul.</figcaption></figure>
+          <figure class="gallery-item"><img src="no01100.png" alt="Sticla numerotată LISANDRU 001" loading="lazy" /><figcaption>Lotul 01.</figcaption></figure>
+          <figure class="gallery-item"><img src="no02100.png" alt="Sticla numerotată LISANDRU 002" loading="lazy" /><figcaption>Începutul unei recolte.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <span class="eyebrow">Mai departe</span>
+        <h2 class="section-title">Povestea începe <em>în vie.</em></h2>
+        <p>Descoperă oamenii, răbdarea și locul din spatele fiecărei sticle LISANDRU.</p>
+        <a class="btn" href="index.html#poveste">CTA CĂTRE POVESTEA RECOLTEI</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> LISANDRU DeColecție · Consumul de alcool este interzis minorilor.</footer>
+
+  <script src="harvest-config.js"></script>
+  <script>
+    const { harvestYear, mustStartDate, mustEndDate } = window.harvestConfig;
+
+    const statusElement = document.getElementById('harvestStatus');
+    const countdownElement = document.getElementById('countdown');
+    const countdownLabel = document.getElementById('countdownLabel');
+    const orderButton = document.getElementById('orderMust');
+    const countdownUnits = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      minutes: document.getElementById('minutes'),
+      seconds: document.getElementById('seconds')
+    };
+
+    const pad = value => String(value).padStart(2, '0');
+    const formatWindow = () => {
+      const start = new Date(mustStartDate);
+      const end = new Date(mustEndDate);
+      const format = date => new Intl.DateTimeFormat('ro-RO', { day: 'numeric', month: 'long' }).format(date);
+      document.getElementById('harvestLabel').textContent = `Recolta ${harvestYear} · Must proaspăt`;
+      document.getElementById('mustNoteLabel').textContent = `Must proaspăt · Recolta ${harvestYear}`;
+      document.getElementById('availabilityWindow').textContent = `Disponibil ${format(start)} – ${format(end)} · Recolta ${harvestYear}`;
+      document.getElementById('orderMust').href = `mailto:rezervari@lisandru.ro?subject=Comanda%20must%20recolta%20${harvestYear}`;
+    };
+
+    function setCountdown(milliseconds) {
+      const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+      countdownUnits.days.textContent = pad(Math.floor(totalSeconds / 86400));
+      countdownUnits.hours.textContent = pad(Math.floor(totalSeconds % 86400 / 3600));
+      countdownUnits.minutes.textContent = pad(Math.floor(totalSeconds % 3600 / 60));
+      countdownUnits.seconds.textContent = pad(totalSeconds % 60);
+    }
+
+    function updateHarvestState() {
+      const now = Date.now();
+      const start = new Date(mustStartDate).getTime();
+      const end = new Date(mustEndDate).getTime();
+      const isActive = now >= start && now <= end;
+      const isUpcoming = now < start;
+
+      statusElement.textContent = isActive ? 'ACTIVE' : 'CLOSED';
+      statusElement.classList.toggle('closed', !isActive);
+      countdownElement.classList.toggle('closed', !isActive);
+      orderButton.setAttribute('aria-disabled', isActive ? 'false' : 'true');
+
+      if (isActive) {
+        countdownLabel.textContent = 'Timp rămas până la închiderea perioadei';
+        setCountdown(end - now);
+      } else {
+        countdownLabel.textContent = isUpcoming ? 'Perioada se deschide în' : 'Perioada recoltei s-a închis';
+        setCountdown(isUpcoming ? start - now : 0);
+      }
+    }
+
+    formatWindow();
+    updateHarvestState();
+    window.setInterval(updateHarvestState, 1000);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
