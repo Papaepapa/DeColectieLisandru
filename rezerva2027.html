@@ -3,27 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Recolta LISANDRU DeColecție: o săptămână de must, un an de așteptare și 100 de sticle." />
-  <title>Recolta · LISANDRU DeColecție</title>
+  <meta name="description" content="Rezervă o sticlă din LISANDRU DeColecție, Lot 01, recolta următoare." />
+  <title>Rezervă Recolta · LISANDRU DeColecție</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --black: #0e0d0c;
-      --black-soft: #17150f;
-      --panel: #1c1a15;
-      --cream: #ebe3d3;
-      --ivory: #f5f0e6;
-      --gold: #c6a250;
-      --muted: #a69b85;
-      --line: rgba(198,162,80,.22);
-    }
+    :root { --black: #0e0d0c; --black-soft: #17150f; --panel: #1c1a15; --cream: #ebe3d3; --ivory: #f5f0e6; --gold: #c6a250; --muted: #a69b85; --line: rgba(198,162,80,.22); }
     html { scroll-behavior: smooth; }
     body { min-height: 100vh; background: var(--black); color: var(--cream); font: 300 16px/1.7 'Jost', sans-serif; -webkit-font-smoothing: antialiased; }
     body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(74,53,39,.38), transparent 68%); }
     a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
     ::selection { background: var(--gold); color: var(--black); }
     .container { width: min(1180px, 90%); margin-inline: auto; }
     .site-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; min-height: 92px; padding-inline: clamp(1.2rem,5vw,3.4rem); border-bottom: 1px solid var(--line); background: rgba(14,13,12,.82); backdrop-filter: blur(14px); }
@@ -34,30 +26,50 @@
     .back-link:hover { color: var(--gold); }
     .back-link svg { width: 16px; height: 16px; }
     main { position: relative; z-index: 1; }
-    .harvest { padding-block: clamp(4rem,8vw,7rem); }
+    .hero { padding-block: clamp(4rem,9vw,8rem) clamp(3.5rem,8vw,6rem); }
+    .hero-grid { display: grid; grid-template-columns: 1fr .8fr; gap: clamp(2.5rem,7vw,7rem); align-items: center; }
     .eyebrow { display: inline-block; position: relative; margin-bottom: 1.2rem; padding-left: 3.4rem; color: var(--gold); font-size: .7rem; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; }
     .eyebrow::before { content: ""; position: absolute; left: 0; top: 50%; width: 2.6rem; height: 1px; background: var(--gold); }
     h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.1; }
-    h1 { max-width: 14ch; color: var(--ivory); font-size: clamp(2.8rem,7vw,5.2rem); }
-    h1 em, h2 em, h3 em { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-weight: 400; }
-    .lead { max-width: 58ch; margin-top: 1.2rem; color: var(--muted); font-size: 1.05rem; }
-    .concept { max-width: 24ch; margin-top: 2.2rem; color: var(--cream); font: italic 400 clamp(1.7rem,4vw,2.8rem)/1.15 'Cormorant Garamond', serif; }
-    .concept span { display: block; color: var(--gold); }
-    .states { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: clamp(3rem,7vw,5.5rem); }
-    .state { position: relative; min-height: 310px; padding: clamp(1.6rem,4vw,2.5rem); border: 1px solid var(--line); background: linear-gradient(160deg, rgba(28,26,21,.75), rgba(14,13,12,.55)); }
-    .state.current { border-color: rgba(198,162,80,.6); background: radial-gradient(ellipse at 20% 10%, rgba(198,162,80,.13), transparent 55%), linear-gradient(160deg, rgba(52,39,25,.8), rgba(14,13,12,.6)); }
-    .state-index { color: var(--gold); font: 400 1rem 'Playfair Display', serif; letter-spacing: .15em; }
-    .state h2 { margin-top: 1.8rem; color: var(--ivory); font-size: clamp(1.8rem,4vw,2.8rem); }
-    .state p { max-width: 42ch; margin-top: .9rem; color: var(--muted); }
-    .state-note { display: block; margin-top: 1.5rem; color: var(--cream); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 52px; margin-top: 1.7rem; padding: .9rem 1.7rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
-    .btn.ghost { background: transparent; color: var(--gold); }
-    .btn:hover { background: var(--ivory); color: var(--black); }
-    .btn.ghost:hover { border-color: var(--ivory); }
-    .route-note { margin-top: clamp(4rem,8vw,6rem); padding-top: 2rem; border-top: 1px solid var(--line); color: var(--muted); }
-    .route-note strong { color: var(--gold); font-weight: 500; }
+    h1 { color: var(--ivory); font-size: clamp(3rem,8vw,6.2rem); letter-spacing: .02em; }
+    h1 em, h2 em { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+    .hero-claim { margin-top: .6rem; color: var(--gold); font: italic 400 clamp(1.8rem,4vw,3.1rem)/1.1 'Cormorant Garamond', serif; }
+    .hero-text { max-width: 54ch; margin-top: 1.8rem; color: var(--muted); font-size: 1.08rem; }
+    .hero-text strong { color: var(--cream); font-weight: 400; }
+    .hero-mark { position: relative; min-height: 390px; display: grid; place-items: center; border: 1px solid var(--line); background: radial-gradient(ellipse at 50% 30%, rgba(198,162,80,.15), transparent 55%), linear-gradient(160deg, #241e15, #0e0d0c); }
+    .hero-mark::before, .hero-mark::after { content: ""; position: absolute; border: 1px solid var(--line); border-radius: 50%; }
+    .hero-mark::before { width: 290px; height: 290px; }
+    .hero-mark::after { width: 210px; height: 210px; border-color: rgba(198,162,80,.12); }
+    .hero-mark .number { position: relative; z-index: 1; color: var(--gold); font: 400 7rem/.9 'Playfair Display', serif; }
+    .hero-mark .label { position: absolute; z-index: 2; bottom: 2rem; color: var(--ivory); font-size: .65rem; letter-spacing: .28em; text-transform: uppercase; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 54px; margin-top: 2rem; padding: 1rem 1.8rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: background .25s, color .25s; }
+    .btn:hover { background: var(--ivory); border-color: var(--ivory); }
+    .details { padding-block: clamp(4rem,8vw,7rem); background: var(--black-soft); }
+    .details-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem,7vw,7rem); align-items: start; }
+    .section-title { color: var(--ivory); font-size: clamp(2.3rem,5vw,4rem); }
+    .edition { display: grid; gap: .8rem; margin-top: 1.8rem; border-top: 1px solid var(--line); }
+    .edition-row { display: flex; justify-content: space-between; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+    .edition-row span:first-child { color: var(--muted); }
+    .edition-row span:last-child { color: var(--cream); text-align: right; }
+    .status { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.8rem; color: var(--gold); font-size: .7rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+    .reservation-panel { padding: clamp(1.5rem,4vw,2.5rem); border: 1px solid var(--line); background: rgba(28,26,21,.55); }
+    .reservation-panel h2 { color: var(--ivory); font-size: clamp(1.8rem,4vw,2.8rem); }
+    .reservation-panel > p { margin-top: .8rem; color: var(--muted); }
+    .quantity { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.8rem; }
+    .quantity label { color: var(--cream); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+    .quantity select { min-width: 90px; padding: .8rem 1rem; border: 1px solid var(--gold); outline: 0; background: var(--black); color: var(--cream); }
+    .notice { margin-top: 1.8rem; padding: 1.2rem 1.3rem; border-left: 1px solid var(--gold); background: rgba(198,162,80,.06); color: var(--cream); }
+    .notice strong { display: block; color: var(--gold); font-weight: 500; }
+    form { display: grid; gap: 1rem; margin-top: 1.8rem; }
+    .field input, .field textarea { width: 100%; padding: 1rem 1.1rem; border: 1px solid var(--line); outline: 0; background: transparent; color: var(--cream); }
+    .field input:focus, .field textarea:focus { border-color: var(--gold); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .feedback { min-height: 1.4em; color: var(--gold); font-size: .82rem; }
     footer { position: relative; z-index: 1; padding: 2rem 5%; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .72rem; }
-    @media (max-width: 700px) { .states { grid-template-columns: 1fr; } .site-header { min-height: 76px; } .brand { font-size: .95rem; } .brand svg { display: none; } .back-link span { display: none; } }
+    @media (max-width: 800px) { .hero-grid, .details-grid { grid-template-columns: 1fr; } .hero-mark { min-height: 300px; order: -1; } }
+    @media (max-width: 560px) { .site-header { min-height: 76px; } .brand { font-size: .95rem; } .brand svg { display: none; } .back-link span { display: none; } .edition-row { flex-direction: column; gap: .25rem; } .edition-row span:last-child { text-align: left; } }
   </style>
 </head>
 <body>
@@ -66,36 +78,70 @@
       <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 3C14 10 12 15 12 21a8 8 0 0016 0c0-6-2-11-8-18zM20 29v8M14 37h12" stroke="#C6A250" stroke-width="1.3"/></svg>
       <span>LISANDRU<small>DeColecție</small></span>
     </a>
-    <a href="index.html#acasa" class="back-link"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.6"/></svg><span>Înapoi la acasă</span></a>
+    <a href="recolta.html" class="back-link"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.6"/></svg><span>Înapoi la recoltă</span></a>
   </header>
 
   <main>
-    <section class="harvest">
-      <div class="container">
-        <span class="eyebrow">Recolta · Lot 01</span>
-        <h1>O săptămână de <em>must.</em></h1>
-        <p class="lead">Recolta are un ritm al ei: mustul este disponibil doar șapte zile, apoi începe anul de așteptare pentru vinul din recolta următoare.</p>
-        <p class="concept">Un an de așteptare.<span><strong id="bottleCount">0</strong> de sticle.</span></p>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">LISANDRU DeColecție · Lot 01</span>
+          <h1>RECOLTA <span id="nextHarvestYear">--</span></h1>
+          <p class="hero-claim">POȚI REZERVA DE ACUM.</p>
+          <p class="hero-text">Cele <strong id="heroBottleCount">0</strong> de sticle ale următoarei colecții vor exista abia după ce recolta va începe și timpul își va face treaba.<br /><br /><strong>Dar locul tău poate fi rezervat acum.</strong></p>
+          <a class="btn" href="#rezervare">REZERVĂ O STICLĂ</a>
+        </div>
+        <div class="hero-mark" aria-label="Lot 01, colecție limitată">
+          <span class="number">01</span>
+          <span class="label">Lot · Recolta <span id="heroNextYear">--</span></span>
+        </div>
+      </div>
+    </section>
 
-        <div class="states">
-          <article class="state current" id="ziua-1">
-            <span class="state-index">01 · Perioada recoltei</span>
-            <h2>Ziua 1 / <em>Must</em></h2>
-            <p>Mustul recoltei curente este disponibil timp de șapte zile, cât timp povestea abia începe.</p>
-            <span class="state-note">Disponibilitate: 7 zile</span>
-            <a class="btn" href="ziua1.html">Vezi Ziua 1 / Must</a>
-          </article>
-
-          <article class="state" id="rezerva-recolta">
-            <span class="state-index">02 · Restul anului</span>
-            <h2>Rezervă recolta <em>următoare</em></h2>
-            <p>După cele șapte zile, mustul nu mai este disponibil. Poți însă rezerva una dintre cele <strong id="nextBottleCount">0</strong> de sticle ale recoltei următoare.</p>
-            <span class="state-note">Disponibilitate: rezervare anticipată</span>
-            <a class="btn ghost" href="rezerva-2027.html">Rezervă o sticlă</a>
-          </article>
+    <section class="details" id="rezervare">
+      <div class="container details-grid">
+        <div>
+          <span class="eyebrow">Următoarea colecție</span>
+          <h2 class="section-title">LISANDRU <em>DeColecție</em></h2>
+          <div class="edition">
+            <div class="edition-row"><span>Lot</span><span>01 · Recolta <span id="editionYear">--</span></span></div>
+            <div class="edition-row"><span>Cantitate</span><span><strong id="editionBottleCount">0</strong> de sticle</span></div>
+            <div class="edition-row"><span>Status</span><span>Rezervări deschise</span></div>
+          </div>
+          <span class="status">REZERVĂRI DESCHISE</span>
         </div>
 
-        <p class="route-note"><strong>Recolta</strong> este locul pentru momentul prezent și pentru promisiunea vinului care urmează. Descoperă apoi <a href="index.html#vinul" style="color:var(--gold)">vinul</a>, <a href="colectie.html" style="color:var(--gold)">colecția</a> sau <a href="galerie.html" style="color:var(--gold)">galeria</a>.</p>
+        <div class="reservation-panel">
+          <h2>Rezervă locul tău.</h2>
+          <p>Alege câte sticle dorești să rezervi din recolta următoare. Revenim personal pentru confirmare și detalii.</p>
+          <div class="quantity">
+            <label for="quantity">Cantitate</label>
+            <select id="quantity" name="quantity">
+              <option value="1">1 sticlă</option>
+              <option value="2">2 sticle</option>
+              <option value="3">3 sticle</option>
+              <option value="4">4 sticle</option>
+              <option value="5">5 sticle</option>
+              <option value="6">6 sticle</option>
+              <option value="7">7 sticle</option>
+              <option value="8">8 sticle</option>
+              <option value="9">9 sticle</option>
+              <option value="10">10 sticle</option>
+            </select>
+          </div>
+          <div class="notice">
+            <strong>Aceasta este o rezervare, nu o livrare imediată.</strong>
+            Vinul va fi disponibil după finalizarea procesului de vinificație și maturare.
+          </div>
+          <form id="reservationForm">
+            <div class="field"><input type="text" id="name" name="name" placeholder="Nume și prenume" required /></div>
+            <div class="field"><input type="email" id="email" name="email" placeholder="Adresă de email" required /></div>
+            <div class="field"><input type="tel" id="phone" name="phone" placeholder="Telefon (opțional)" /></div>
+            <div class="field"><textarea id="message" name="message" placeholder="Mesajul tău"></textarea></div>
+            <button class="btn" type="submit">TRIMITE REZERVAREA</button>
+            <p class="feedback" id="feedback" role="status"></p>
+          </form>
+        </div>
       </div>
     </section>
   </main>
@@ -103,9 +149,24 @@
   <footer>© <span id="year"></span> LISANDRU DeColecție · Consumul de alcool este interzis minorilor.</footer>
   <script src="harvest-config.js"></script>
   <script>
-    const { totalBottles } = window.harvestConfig;
-    document.getElementById('bottleCount').textContent = totalBottles;
-    document.getElementById('nextBottleCount').textContent = totalBottles;
+    const { nextHarvestYear, totalBottles } = window.harvestConfig;
+    document.getElementById('nextHarvestYear').textContent = nextHarvestYear;
+    document.getElementById('heroNextYear').textContent = nextHarvestYear;
+    document.getElementById('editionYear').textContent = nextHarvestYear;
+    document.getElementById('editionBottleCount').textContent = totalBottles;
+    document.getElementById('heroBottleCount').textContent = totalBottles;
+    const form = document.getElementById('reservationForm');
+    const quantity = document.getElementById('quantity');
+    const feedback = document.getElementById('feedback');
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const count = quantity.options[quantity.selectedIndex].text;
+      feedback.textContent = `Cererea pentru ${count} din Recolta ${nextHarvestYear} a fost înregistrată local. Te vom contacta pentru confirmare.`;
+      form.reset();
+      quantity.value = '1';
+    });
+
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
