@@ -225,6 +225,11 @@
     }
     .nav-links a:hover { opacity: 1; color: var(--gold); }
     .nav-links a:hover::after { width: 100%; }
+    .nav-parent { position: relative; }
+    .nav-submenu { position: absolute; top: calc(100% + 1rem); left: 50%; display: grid; gap: .65rem; min-width: 210px; padding: .9rem 1rem; border: 1px solid var(--line); background: rgba(14,13,12,.96); opacity: 0; pointer-events: none; transform: translate(-50%, -.35rem); transition: opacity .25s, transform .25s; }
+    .nav-parent:hover .nav-submenu, .nav-parent:focus-within .nav-submenu { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+    .nav-submenu a { display: block; padding: .25rem 0; font-size: .66rem; white-space: nowrap; }
+    .nav-submenu a::after { display: none; }
 
     .nav-cta {
       border: 1px solid var(--gold);
@@ -303,6 +308,24 @@
       line-height: 1.4;
     }
     .hero-actions { display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; }
+    .hero-state { display: none; }
+    .hero-state.active { display: block; }
+    .hero-state-label { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1rem; color: var(--gold); font-size: .7rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; }
+    .hero-state-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+    .hero-concept { max-width: 11ch; color: var(--ivory); font: 400 clamp(2.8rem,7vw,5.4rem)/.98 'Playfair Display', serif; letter-spacing: .01em; }
+    .hero-concept span { display: block; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .hero-title strong { color: inherit; font: inherit; }
+    .hero-subheadline { max-width: 24ch; margin: 1.3rem 0 2.1rem; color: var(--cream); font: italic 400 clamp(1.5rem,3vw,2rem)/1.15 'Cormorant Garamond', serif; }
+    .hero-countdown { display: flex; gap: 1.4rem; margin: 1.7rem 0 2rem; }
+    .hero-countdown-unit strong { display: block; color: var(--ivory); font: 400 1.8rem/1 'Playfair Display', serif; }
+    .hero-countdown-unit span { display: block; margin-top: .35rem; color: var(--muted); font-size: .55rem; letter-spacing: .16em; text-transform: uppercase; }
+    .harvest-links { padding-block: clamp(3.5rem,7vw,6rem); background: var(--black-soft); }
+    .harvest-links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .harvest-link { min-height: 190px; padding: 1.8rem; border: 1px solid var(--line); background: linear-gradient(160deg, rgba(28,26,21,.65), rgba(14,13,12,.35)); transition: transform .35s, border-color .35s; }
+    .harvest-link:hover { border-color: var(--gold); transform: translateY(-5px); }
+    .harvest-link .idx { color: var(--gold); font: 400 .85rem 'Playfair Display', serif; letter-spacing: .18em; }
+    .harvest-link h3 { margin-top: 1.8rem; color: var(--ivory); font-size: 1.6rem; }
+    .harvest-link p { margin-top: .5rem; color: var(--muted); font-size: .88rem; }
 
     /* Hero bottle visual */
     .hero-visual {
@@ -675,6 +698,7 @@
       .nav-links.open { transform: translateX(0); }
       .nav-links a { font-size: 1rem; }
       .nav-toggle { display: flex; z-index: 110; }
+      .harvest-links-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .vinul-meta { gap: 1.6rem; }
@@ -700,6 +724,13 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#acasa">Acasă</a></li>
       <li><a href="#poveste">Povestea noastră</a></li>
+      <li class="nav-parent">
+        <a href="recolta.html">Recolta</a>
+        <div class="nav-submenu" aria-label="Secțiuni Recolta">
+          <a href="ziua1.html">Ziua 1 / Must</a>
+          <a href="rezerva-2027.html">Rezervă recolta următoare</a>
+        </div>
+      </li>
       <li><a href="#vinul">Vinul</a></li>
       <li><a href="#colectia">Colecția</a></li>
       <li><a href="galerie.html">Galerie</a></li>
@@ -717,19 +748,31 @@
     <div class="container">
       <div class="hero-grid">
         <div class="hero-copy reveal">
-          <span class="eyebrow">Ediție limitată · Lot 01</span>
-          <h1 class="hero-title">
-            LISANDRU
-            <span>DeColecție</span>
-          </h1>
-          <p class="hero-sub">Vin roșu de familie</p>
-          <p class="hero-poem">„Fiecare sticlă are propria personalitate.”</p>
-          <div class="hero-actions">
-            <a href="#poveste" class="btn solid">
-              Descoperă povestea
-              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
-            </a>
-            <a href="colectie.html" class="btn">Rezervă sticla</a>
+          <span class="eyebrow">LISANDRU DeColecție · Recolta</span>
+          <h1 class="hero-concept">NU ÎNCEPE CU VINUL.<span>ÎNCEPE CU RECOLTA.</span></h1>
+          <p class="hero-subheadline">O săptămână de must.<br />Un an de așteptare.<br /><span id="heroBottleCount">0</span> de sticle.</p>
+          <div class="hero-state" id="harvestHeroState">
+            <span class="hero-state-label">Perioada recoltei</span>
+            <h1 class="hero-title">ZIUA 1<span>Mustul Recoltei <strong id="heroHarvestYear">--</strong></span></h1>
+            <p class="hero-poem">„O săptămână în care poți gusta recolta înainte să devină vin.”</p>
+            <div class="hero-countdown" aria-live="polite">
+              <div class="hero-countdown-unit"><strong id="heroDays">00</strong><span>Zile</span></div>
+              <div class="hero-countdown-unit"><strong id="heroHours">00</strong><span>Ore</span></div>
+              <div class="hero-countdown-unit"><strong id="heroMinutes">00</strong><span>Minute</span></div>
+            </div>
+            <div class="hero-actions">
+              <a href="ziua1.html" class="btn solid">DESCOPERĂ ZIUA 1</a>
+              <a href="colectie.html" class="btn">REZERVĂ O STICLĂ DE VIN</a>
+            </div>
+          </div>
+          <div class="hero-state" id="nextHarvestHeroState">
+            <span class="hero-state-label">Restul anului</span>
+            <h1 class="hero-title">RECOLTA <strong id="heroNextHarvestYear">--</strong><span>POȚI REZERVA DE ACUM.</span></h1>
+            <p class="hero-poem">„O săptămână de must. Un an de așteptare. 100 de sticle.”</p>
+            <div class="hero-actions">
+              <a href="colectie.html" class="btn solid">REZERVĂ O STICLĂ DE VIN</a>
+              <a href="ziua1.html" class="btn">DESCOPERĂ MUSTUL RECOLTEI</a>
+            </div>
           </div>
         </div>
 
@@ -742,6 +785,16 @@
     <div class="hero-scroll">
       <span>Scroll</span>
       <span class="line"></span>
+    </div>
+  </section>
+
+  <section class="harvest-links" aria-label="Descoperă recolta">
+    <div class="container">
+      <div class="harvest-links-grid">
+        <a class="harvest-link" href="ziua1.html"><span class="idx">01</span><h3>ZIUA 1</h3><p>Mustul recoltei, înainte să devină vin.</p></a>
+        <a class="harvest-link" href="#colectia"><span class="idx">02</span><h3><span id="collectionCardCount">0</span> DE STICLE</h3><p>O colecție limitată, fiecare sticlă numerotată.</p></a>
+        <a class="harvest-link" href="#poveste"><span class="idx">03</span><h3>Povestea recoltei</h3><p>Locul, oamenii și timpul din spatele ei.</p></a>
+      </div>
     </div>
   </section>
 
@@ -790,7 +843,7 @@
 
       <div class="vinul-meta">
         <div class="item">
-          <div class="k">100</div>
+          <div class="k" id="lotBottleCount">0</div>
           <div class="l">Sticle în lot</div>
         </div>
         <div class="item">
@@ -872,7 +925,7 @@
             <li><span>Lot</span><span>01 · producție limitată</span></li>
             <li><span>Volum</span><span>750 ml</span></li>
             <li><span>Numerotare</span><span>Fiecare sticlă numerotată</span></li>
-            <li><span>Disponibil</span><span id="productAvailability">100 din 100 sticle</span></li>
+            <li><span>Disponibil</span><span id="productAvailability">0 din 0 sticle</span></li>
           </ul>
 
           <div class="price-row">
@@ -1023,6 +1076,7 @@
           <h4>Navigare</h4>
           <a href="#acasa">Acasă</a>
           <a href="#poveste">Povestea noastră</a>
+          <a href="recolta.html">Recolta</a>
           <a href="#vinul">Vinul</a>
           <a href="#colectia">Colecția</a>
           <a href="galerie.html">Galerie</a>
@@ -1044,7 +1098,34 @@
     </div>
   </footer>
 
+  <script src="harvest-config.js"></script>
   <script>
+    const { harvestYear, mustStartDate, mustEndDate, nextHarvestYear, totalBottles } = window.harvestConfig;
+    document.getElementById('heroHarvestYear').textContent = harvestYear;
+    document.getElementById('heroNextHarvestYear').textContent = nextHarvestYear;
+    document.getElementById('heroBottleCount').textContent = totalBottles;
+    document.getElementById('collectionCardCount').textContent = totalBottles;
+    document.getElementById('lotBottleCount').textContent = totalBottles;
+    document.getElementById('productAvailability').textContent = `${totalBottles} din ${totalBottles} sticle`;
+
+    function updateHarvestHero() {
+      const now = Date.now();
+      const start = new Date(mustStartDate).getTime();
+      const end = new Date(mustEndDate).getTime();
+      const isActive = now >= start && now <= end;
+      document.getElementById('harvestHeroState').classList.toggle('active', isActive);
+      document.getElementById('nextHarvestHeroState').classList.toggle('active', !isActive);
+      if (!isActive) return;
+      const remaining = Math.max(0, end - now);
+      const totalMinutes = Math.floor(remaining / 60000);
+      document.getElementById('heroDays').textContent = String(Math.floor(totalMinutes / 1440)).padStart(2, '0');
+      document.getElementById('heroHours').textContent = String(Math.floor(totalMinutes % 1440 / 60)).padStart(2, '0');
+      document.getElementById('heroMinutes').textContent = String(totalMinutes % 60).padStart(2, '0');
+    }
+
+    updateHarvestHero();
+    window.setInterval(updateHarvestHero, 60000);
+
     // ---- Navbar scroll state ----
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
