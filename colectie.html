@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Alege și rezervă una dintre cele 100 de sticle numerotate LISANDRU DeColecție." />
+  <meta name="description" content="Alege și rezervă o sticlă numerotată LISANDRU DeColecție." />
   <title>Colecția numerotată · LISANDRU DeColecție</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -72,15 +72,17 @@
     .bottle-tooltip { position: absolute; left: 50%; top: 0; z-index: 6; width: 270px; padding: .8rem .9rem .9rem; border: 1px solid rgba(198,162,80,.42); background: rgba(14,13,12,.96); color: var(--cream); text-align: left; opacity: 0; pointer-events: none; transform: translate(-50%, calc(-100% - .25rem)); transition: opacity .2s, transform .2s; }
     .bottle-tooltip::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 10px; height: 10px; border-right: 1px solid rgba(198,162,80,.42); border-bottom: 1px solid rgba(198,162,80,.42); background: rgba(14,13,12,.96); transform: translateX(-50%) rotate(45deg); }
     .bottle-tooltip strong { display: block; margin-bottom: .3rem; color: var(--ivory); font: 400 .95rem/1.2 'Playfair Display', serif; letter-spacing: .08em; }
-    .bottle-tooltip img { display: block; width: 100%; height: 176px; margin-bottom: .6rem; border: 1px solid rgba(198,162,80,.38); background: #0f0e0b; object-fit: contain; object-position: center; }
+    .bottle-tooltip img { display: block; width: 100%; height: 176px; margin-bottom: .6rem; border: 1px solid rgba(198,162,80,.38); background: #0f0e0b; object-fit: contain; object-position: center; transition: transform .35s ease; }
+    .bottle-option:hover .bottle-tooltip img,
+    .bottle-option:focus-visible .bottle-tooltip img { transform: scale(1.12); }
     .bottle-tooltip small { display: block; color: var(--muted); font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; }
     .bottle-tooltip em { display: block; margin-top: .25rem; color: var(--gold); font: italic 400 .82rem/1.35 'Cormorant Garamond', serif; letter-spacing: .02em; }
     .bottle-modal { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 1rem; background: rgba(9,8,7,.74); opacity: 0; pointer-events: none; transition: opacity .25s; }
     .bottle-modal.is-open { opacity: 1; pointer-events: auto; }
-    .bottle-modal-card { position: relative; width: min(680px, 96vw); padding: 1.5rem; border: 1px solid rgba(198,162,80,.38); background: linear-gradient(160deg, #1d1a15 0%, #11100d 100%); box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+    .bottle-modal-card { position: relative; width: min(900px, 96vw); max-height: calc(100vh - 2rem); overflow: auto; padding: 1.5rem; border: 1px solid rgba(198,162,80,.38); background: linear-gradient(160deg, #1d1a15 0%, #11100d 100%); box-shadow: 0 20px 50px rgba(0,0,0,.45); }
     .bottle-modal-close { position: absolute; top: .7rem; right: .7rem; width: 36px; height: 36px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 1rem; cursor: pointer; }
-    .bottle-modal-grid { display: grid; grid-template-columns: 280px 1fr; gap: 1.25rem; align-items: center; }
-    .bottle-modal-grid img { width: 100%; height: 260px; border: 1px solid rgba(198,162,80,.38); background: #0f0e0b; object-fit: contain; object-position: center; }
+    .bottle-modal-grid { display: grid; grid-template-columns: minmax(320px, 380px) 1fr; gap: 1.5rem; align-items: center; }
+    .bottle-modal-grid img { width: 100%; height: min(62vh, 520px); border: 1px solid rgba(198,162,80,.38); background: #0f0e0b; object-fit: contain; object-position: center; }
     .bottle-modal-copy h3 { color: var(--ivory); font: 400 1.7rem/1.15 'Playfair Display', serif; }
     .bottle-modal-copy p { margin-top: .45rem; color: var(--muted); }
     .bottle-modal-copy p strong { color: var(--gold); font-weight: 500; }
@@ -128,12 +130,12 @@
       <div class="container">
         <div class="picker-head">
           <div>
-            <span class="eyebrow">Lot 01 · 100 exemplare</span>
+            <span class="eyebrow">Lot 01 · <span id="collectionTotalLabel">0</span> exemplare</span>
             <h1>Alege sticla <em>ta.</em></h1>
             <p class="lead">Fiecare exemplar poartă propriul număr. Sticlele rezervate rămân vizibile în colecție, dar nu mai pot fi selectate.</p>
           </div>
           <div class="summary" aria-live="polite">
-            <div><strong id="availableCount">100</strong><span>Disponibile</span></div>
+            <div><strong id="availableCount">0</strong><span>Disponibile</span></div>
             <div><strong id="reservedCount">0</strong><span>Rezervate</span></div>
           </div>
         </div>
@@ -150,7 +152,7 @@
           </div>
         </div>
 
-        <div class="bottle-grid" id="bottleGrid" aria-label="Colecția de 100 de sticle"></div>
+        <div class="bottle-grid" id="bottleGrid" aria-label="Colecția de sticle"></div>
 
         <section class="reservation" id="rezervare">
           <div>
@@ -193,9 +195,10 @@
 
   <footer>© <span id="year"></span> LISANDRU DeColecție · Consumul de alcool este interzis minorilor.</footer>
 
+  <script src="harvest-config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Conexiune Supabase (valori publice — protejate prin regulile RLS din baza de date).
+    const { totalBottles } = window.harvestConfig;
     const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -218,6 +221,8 @@
     let activeFilter = 'all';
     let previewBottle = null;
     const formatBottleNumber = number => String(number).padStart(3, '0');
+    document.getElementById('collectionTotalLabel').textContent = totalBottles;
+    bottleGrid.setAttribute('aria-label', `Colecția de ${totalBottles} de sticle`);
 
     function getBottleImageSrc(number) {
       return `./no${String(number).padStart(2, '0')}100.png`;
@@ -284,13 +289,13 @@
     }
 
     function updateAvailability() {
-      document.getElementById('availableCount').textContent = 100 - reservedBottles.size;
+      document.getElementById('availableCount').textContent = totalBottles - reservedBottles.size;
       document.getElementById('reservedCount').textContent = reservedBottles.size;
     }
 
     function renderBottles() {
       bottleGrid.innerHTML = '';
-      for (let number = 1; number <= 100; number += 1) {
+      for (let number = 1; number <= totalBottles; number += 1) {
         const isReserved = reservedBottles.has(number);
         if (activeFilter === 'available' && isReserved) continue;
         if (activeFilter === 'reserved' && !isReserved) continue;
@@ -351,21 +356,19 @@
       const submitButton = form.querySelector('button[type="submit"]');
       const formattedNumber = formatBottleNumber(selectedBottle);
 
-      const detail = {
-        bottle: selectedBottle,
-        nume: (form.name.value || '').trim(),
-        email: (form.email.value || '').trim(),
-        telefon: (form.phone.value || '').trim(),
-        mesaj: (form.message.value || '').trim()
-      };
-
       submitButton.disabled = true;
       formFeedback.textContent = 'Se trimite rezervarea…';
 
       try {
+        const detail = {
+          bottle: selectedBottle,
+          nume: (form.name.value || '').trim(),
+          email: (form.email.value || '').trim(),
+          telefon: (form.phone.value || '').trim(),
+          mesaj: (form.message.value || '').trim()
+        };
         const { error } = await db.from('rezervari').insert(detail);
         if (error) {
-          // 23505 = cheie unică duplicată → sticla e deja rezervată
           if (error.code === '23505') {
             formFeedback.textContent = 'Ne pare rău, sticla tocmai a fost rezervată de altcineva. Alege alta.';
             selectedBottle = null;
