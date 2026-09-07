@@ -728,7 +728,6 @@
         <a href="recolta.html">Recolta</a>
         <div class="nav-submenu" aria-label="Secțiuni Recolta">
           <a href="ziua1.html">Ziua 1 / Must</a>
-          <a href="rezerva-2027.html">Rezervă recolta următoare</a>
         </div>
       </li>
       <li><a href="#vinul">Vinul</a></li>
@@ -762,16 +761,7 @@
             </div>
             <div class="hero-actions">
               <a href="ziua1.html" class="btn solid">DESCOPERĂ ZIUA 1</a>
-              <a href="colectie.html" class="btn">REZERVĂ O STICLĂ DE VIN</a>
-            </div>
-          </div>
-          <div class="hero-state" id="nextHarvestHeroState">
-            <span class="hero-state-label">Restul anului</span>
-            <h1 class="hero-title">RECOLTA <strong id="heroNextHarvestYear">--</strong><span>POȚI REZERVA DE ACUM.</span></h1>
-            <p class="hero-poem">„O săptămână de must. Un an de așteptare. 100 de sticle.”</p>
-            <div class="hero-actions">
-              <a href="colectie.html" class="btn solid">REZERVĂ O STICLĂ DE VIN</a>
-              <a href="ziua1.html" class="btn">DESCOPERĂ MUSTUL RECOLTEI</a>
+              <a href="ziua1.html" class="btn">REZERVĂ O STICLĂ DE MUST</a>
             </div>
           </div>
         </div>
@@ -1043,7 +1033,7 @@
           </div>
         </div>
 
-        <form class="reveal" id="reservationForm" onsubmit="return false;" aria-label="Formular de contact">
+        <form class="reveal" id="contactForm" aria-label="Formular de contact">
           <div class="field"><input type="text" name="name" placeholder="Nume și prenume" required /></div>
           <div class="field"><input type="email" name="email" placeholder="Adresă de email" required /></div>
           <div class="field"><input type="tel" placeholder="Telefon (opțional)" /></div>
@@ -1052,7 +1042,7 @@
             Trimite rezervarea
             <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
           </button>
-          <p class="form-note">Îți răspundem personal în cel mai scurt timp. Fără liste, fără spam.</p>
+          <p class="form-note" id="contactFeedback" role="status">Îți răspundem personal în cel mai scurt timp. Fără liste, fără spam.</p>
         </form>
       </div>
     </div>
@@ -1099,10 +1089,13 @@
   </footer>
 
   <script src="harvest-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const { harvestYear, mustStartDate, mustEndDate, nextHarvestYear, totalBottles } = window.harvestConfig;
+    const { harvestYear, mustStartDate, mustEndDate, totalBottles } = window.harvestConfig;
+    const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     document.getElementById('heroHarvestYear').textContent = harvestYear;
-    document.getElementById('heroNextHarvestYear').textContent = nextHarvestYear;
     document.getElementById('heroBottleCount').textContent = totalBottles;
     document.getElementById('collectionCardCount').textContent = totalBottles;
     document.getElementById('lotBottleCount').textContent = totalBottles;
@@ -1113,9 +1106,13 @@
       const start = new Date(mustStartDate).getTime();
       const end = new Date(mustEndDate).getTime();
       const isActive = now >= start && now <= end;
-      document.getElementById('harvestHeroState').classList.toggle('active', isActive);
-      document.getElementById('nextHarvestHeroState').classList.toggle('active', !isActive);
-      if (!isActive) return;
+      document.getElementById('harvestHeroState').classList.add('active');
+      if (!isActive) {
+        document.getElementById('heroDays').textContent = '00';
+        document.getElementById('heroHours').textContent = '00';
+        document.getElementById('heroMinutes').textContent = '00';
+        return;
+      }
       const remaining = Math.max(0, end - now);
       const totalMinutes = Math.floor(remaining / 60000);
       document.getElementById('heroDays').textContent = String(Math.floor(totalMinutes / 1440)).padStart(2, '0');
@@ -1143,6 +1140,32 @@
       navToggle.classList.remove('open');
       navLinks.classList.remove('open');
     }));
+
+    const contactForm = document.getElementById('contactForm');
+    const contactFeedback = document.getElementById('contactFeedback');
+    contactForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      const submitButton = contactForm.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      contactFeedback.textContent = 'Se trimite mesajul...';
+
+      try {
+        const formData = new FormData(contactForm);
+        const { error } = await db.from('mesaje_contact').insert({
+          nume: String(formData.get('name') || '').trim(),
+          email: String(formData.get('email') || '').trim(),
+          telefon: String(formData.get('phone') || '').trim(),
+          mesaj: String(formData.get('message') || '').trim()
+        });
+        if (error) throw error;
+        contactForm.reset();
+        contactFeedback.textContent = 'Mesajul a fost trimis. Îți răspundem personal cât mai curând.';
+      } catch (error) {
+        contactFeedback.textContent = 'Nu am putut trimite mesajul. Încearcă din nou sau contactează-ne direct.';
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
 
     // ---- Reveal on scroll ----
     const io = new IntersectionObserver((entries) => {
