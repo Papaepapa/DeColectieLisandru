@@ -74,24 +74,16 @@
       <div class="container">
         <span class="eyebrow">Recolta · Lot 01</span>
         <h1>O săptămână de <em>must.</em></h1>
-        <p class="lead">Recolta are un ritm al ei: mustul este disponibil doar șapte zile, apoi începe anul de așteptare pentru vinul din recolta următoare.</p>
+        <p class="lead">Recolta are un ritm al ei: mustul este disponibil în loturi mici, iar tu îl poți rezerva direct, fără să aștepți perioada de degustare.</p>
         <p class="concept">Un an de așteptare.<span><strong id="bottleCount">0</strong> de sticle.</span></p>
 
-        <div class="states">
+        <div class="states" style="grid-template-columns: minmax(0, 1fr); max-width: 620px;">
           <article class="state current" id="ziua-1">
             <span class="state-index">01 · Perioada recoltei</span>
             <h2>Ziua 1 / <em>Must</em></h2>
             <p>Mustul recoltei curente este disponibil timp de șapte zile, cât timp povestea abia începe.</p>
-            <span class="state-note">Disponibilitate: 7 zile</span>
-            <a class="btn" href="ziua1.html">Vezi Ziua 1 / Must</a>
-          </article>
-
-          <article class="state" id="rezerva-recolta">
-            <span class="state-index">02 · Restul anului</span>
-            <h2>Rezervă recolta <em>următoare</em></h2>
-            <p>După cele șapte zile, mustul nu mai este disponibil. Poți însă rezerva una dintre cele <strong id="nextBottleCount">0</strong> de sticle ale recoltei următoare.</p>
-            <span class="state-note">Disponibilitate: rezervare anticipată</span>
-            <a class="btn ghost" href="rezerva2027.html">Rezervă o sticlă</a>
+            <span class="state-note">Rezervări deschise acum</span>
+            <a class="btn" href="ziua1.html">Rezervă o sticlă de must</a>
           </article>
         </div>
 
@@ -105,7 +97,6 @@
   <script>
     const { totalBottles } = window.harvestConfig;
     document.getElementById('bottleCount').textContent = totalBottles;
-    document.getElementById('nextBottleCount').textContent = totalBottles;
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>

@@ -88,6 +88,23 @@
     .gallery-item figcaption { position: absolute; right: 1rem; bottom: .8rem; left: 1rem; color: var(--ivory); font: italic 400 1.15rem 'Cormorant Garamond', serif; text-shadow: 0 2px 8px #000; }
     .cta { padding-block: clamp(4rem,8vw,7rem); text-align: center; }
     .cta p { max-width: 42ch; margin: 1rem auto 0; color: var(--muted); }
+    .must-modal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 1rem; background: rgba(9,8,7,.78); opacity: 0; pointer-events: none; transition: opacity .25s; }
+    .must-modal.is-open { opacity: 1; pointer-events: auto; }
+    .must-modal-card { position: relative; display: grid; grid-template-columns: .85fr 1.15fr; width: min(900px, 96vw); max-height: calc(100vh - 2rem); overflow: auto; border: 1px solid rgba(198,162,80,.42); background: linear-gradient(160deg, #1d1a15 0%, #11100d 100%); box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+    .must-modal-visual { min-height: 540px; background: #17120d; }
+    .must-modal-visual img { width: 100%; height: 100%; min-height: 540px; object-fit: cover; }
+    .must-modal-copy { padding: clamp(1.5rem,4vw,2.8rem); }
+    .must-modal-copy h2 { color: var(--ivory); font-size: clamp(2rem,4vw,3rem); }
+    .must-modal-copy > p { margin-top: .8rem; color: var(--muted); }
+    .must-modal-close { position: absolute; top: .7rem; right: .7rem; z-index: 2; width: 36px; height: 36px; border: 1px solid var(--line); background: rgba(14,13,12,.7); color: var(--muted); cursor: pointer; }
+    .must-form { display: grid; gap: .85rem; margin-top: 1.4rem; }
+    .must-form input, .must-form textarea, .must-form select { width: 100%; padding: .9rem 1rem; border: 1px solid var(--line); outline: 0; background: transparent; color: var(--cream); }
+    .must-form select { background: var(--black); }
+    .must-form textarea { min-height: 90px; resize: vertical; }
+    .must-form input:focus, .must-form textarea:focus, .must-form select:focus { border-color: var(--gold); }
+    .must-form label { color: var(--muted); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; }
+    .must-feedback { min-height: 1.4em; color: var(--gold); font-size: .8rem; }
+    @media (max-width: 700px) { .must-modal-card { grid-template-columns: 1fr; } .must-modal-visual, .must-modal-visual img { min-height: 220px; height: 220px; } }
     footer { position: relative; z-index: 1; padding: 2rem 5%; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .72rem; }
     @media (max-width: 800px) { .hero-grid, .description { grid-template-columns: 1fr; } .hero-image { min-height: 360px; order: -1; } .process-grid { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr 1fr; } .gallery-item:first-child { grid-column: span 2; } }
     @media (max-width: 560px) { .site-header { min-height: 76px; } .brand { font-size: .95rem; } .brand svg { display: none; } .back-link span { display: none; } .gallery-grid { grid-template-columns: 1fr; } .gallery-item:first-child { grid-column: auto; } }
@@ -123,7 +140,7 @@
               <div class="countdown-unit"><strong id="seconds">00</strong><span>Secunde</span></div>
             </div>
           </div>
-          <a class="btn" id="orderMust" href="mailto:rezervari@lisandru.ro">COMANDĂ MUST</a>
+          <button class="btn" id="orderMust" type="button">REZERVĂ MUST ACUM</button>
         </div>
         <figure class="hero-image">
           <img src="poza.webp" alt="Sticlă LISANDRU DeColecție" />
@@ -182,7 +199,43 @@
 
   <footer>© <span id="year"></span> LISANDRU DeColecție · Consumul de alcool este interzis minorilor.</footer>
 
+  <div class="must-modal" id="mustModal" aria-hidden="true">
+    <div class="must-modal-card" role="dialog" aria-modal="true" aria-labelledby="mustModalTitle">
+      <button class="must-modal-close" id="mustModalClose" type="button" aria-label="Închide formularul">✕</button>
+      <div class="must-modal-visual">
+        <img src="poza.webp" alt="Via LISANDRU la lumina recoltei" />
+      </div>
+      <div class="must-modal-copy">
+        <span class="eyebrow">Must proaspăt · Recolta</span>
+        <h2 id="mustModalTitle">Rezervă mustul <em>acum.</em></h2>
+        <p>Completează datele, alege cantitatea, iar noi te contactăm pentru confirmarea comenzii și livrare.</p>
+        <form class="must-form" id="mustOrderForm">
+          <input type="text" name="name" placeholder="Nume și prenume" required />
+          <input type="email" name="email" placeholder="Adresă de email" required />
+          <input type="tel" name="phone" placeholder="Telefon (opțional)" />
+          <label for="mustQuantity">Cantitate</label>
+          <select id="mustQuantity" name="quantity">
+            <option value="1">1 sticlă</option>
+            <option value="2">2 sticle</option>
+            <option value="3">3 sticle</option>
+            <option value="4">4 sticle</option>
+            <option value="5">5 sticle</option>
+            <option value="6">6 sticle</option>
+            <option value="7">7 sticle</option>
+            <option value="8">8 sticle</option>
+            <option value="9">9 sticle</option>
+            <option value="10">10 sticle</option>
+          </select>
+          <textarea name="message" placeholder="Mesajul tău"></textarea>
+          <button class="btn" type="submit">TRIMITE COMANDA</button>
+          <p class="must-feedback" id="mustFeedback" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script src="harvest-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const { harvestYear, mustStartDate, mustEndDate } = window.harvestConfig;
 
@@ -205,7 +258,6 @@
       document.getElementById('harvestLabel').textContent = `Recolta ${harvestYear} · Must proaspăt`;
       document.getElementById('mustNoteLabel').textContent = `Must proaspăt · Recolta ${harvestYear}`;
       document.getElementById('availabilityWindow').textContent = `Disponibil ${format(start)} – ${format(end)} · Recolta ${harvestYear}`;
-      document.getElementById('orderMust').href = `mailto:rezervari@lisandru.ro?subject=Comanda%20must%20recolta%20${harvestYear}`;
     };
 
     function setCountdown(milliseconds) {
@@ -226,7 +278,7 @@
       statusElement.textContent = isActive ? 'ACTIVE' : 'CLOSED';
       statusElement.classList.toggle('closed', !isActive);
       countdownElement.classList.toggle('closed', !isActive);
-      orderButton.setAttribute('aria-disabled', isActive ? 'false' : 'true');
+      orderButton.setAttribute('aria-disabled', 'false');
 
       if (isActive) {
         countdownLabel.textContent = 'Timp rămas până la închiderea perioadei';
@@ -241,6 +293,57 @@
     updateHarvestState();
     window.setInterval(updateHarvestState, 1000);
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const mustModal = document.getElementById('mustModal');
+    const mustOrderForm = document.getElementById('mustOrderForm');
+    const mustFeedback = document.getElementById('mustFeedback');
+
+    const closeMustModal = () => {
+      mustModal.classList.remove('is-open');
+      mustModal.setAttribute('aria-hidden', 'true');
+    };
+
+    document.getElementById('orderMust').addEventListener('click', () => {
+      mustModal.classList.add('is-open');
+      mustModal.setAttribute('aria-hidden', 'false');
+      mustOrderForm.elements.name.focus();
+    });
+    document.getElementById('mustModalClose').addEventListener('click', closeMustModal);
+    mustModal.addEventListener('click', event => {
+      if (event.target === mustModal) closeMustModal();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && mustModal.classList.contains('is-open')) closeMustModal();
+    });
+
+    mustOrderForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      const submitButton = mustOrderForm.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      mustFeedback.textContent = 'Se trimite comanda...';
+      const formData = new FormData(mustOrderForm);
+
+      try {
+        const { error } = await db.from('comenzi_must').insert({
+          nume: String(formData.get('name') || '').trim(),
+          email: String(formData.get('email') || '').trim(),
+          telefon: String(formData.get('phone') || '').trim(),
+          cantitate: Number(formData.get('quantity')),
+          mesaj: String(formData.get('message') || '').trim(),
+          an_recolta: harvestYear
+        });
+        if (error) throw error;
+        mustOrderForm.reset();
+        mustFeedback.textContent = 'Comanda a fost trimisă. Te vom contacta pentru confirmare.';
+      } catch (error) {
+        mustFeedback.textContent = 'Nu am putut trimite comanda. Încearcă din nou.';
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
