@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Solicită o ofertă pentru comenzi de vin LISANDRU în cantități mari, pentru restaurante, evenimente și cadouri." />
+  <title>Comenzi în cantități mari · LISANDRU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0e0d0c;
+      --black-soft: #17150f;
+      --panel: #1c1a15;
+      --cream: #ebe3d3;
+      --ivory: #f5f0e6;
+      --gold: #c6a250;
+      --gold-soft: #d8be82;
+      --muted: #a69b85;
+      --line: rgba(198,162,80,.22);
+    }
+    body { min-height: 100vh; background: var(--black); color: var(--cream); font: 300 16px/1.7 'Jost', sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    .container { width: min(1120px, 90%); margin-inline: auto; }
+    .site-header { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; min-height: 88px; padding-inline: clamp(1.2rem,5vw,3.4rem); border-bottom: 1px solid var(--line); background: rgba(14,13,12,.9); }
+    .brand { display: flex; align-items: center; gap: .7rem; color: var(--ivory); font: 400 1.2rem 'Playfair Display',serif; letter-spacing: .25em; text-transform: uppercase; }
+    .brand svg { width: 30px; height: 30px; }
+    .brand small { display: block; margin-top: .1rem; color: var(--gold); font: 500 .5rem 'Jost',sans-serif; letter-spacing: .4em; }
+    .back-link { color: var(--muted); font-size: .68rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+    .back-link:hover { color: var(--gold); }
+    main { padding-block: clamp(3rem,8vw,6.5rem); background: radial-gradient(ellipse 75% 55% at 50% 0%, rgba(74,53,39,.32), transparent 70%); }
+    .order-grid { display: grid; grid-template-columns: 1fr minmax(320px,.82fr); gap: clamp(2.5rem,7vw,6rem); align-items: start; }
+    .eyebrow { display: inline-block; margin-bottom: 1.2rem; color: var(--gold); font-size: .68rem; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; }
+    h1, h2 { font-family: 'Playfair Display',serif; font-weight: 400; line-height: 1.1; }
+    h1 { max-width: 12ch; color: var(--ivory); font-size: clamp(2.8rem,6.5vw,5.2rem); }
+    h1 em, h2 em { color: var(--gold); font-family: 'Cormorant Garamond',serif; font-weight: 400; }
+    .intro { max-width: 52ch; margin-top: 1.5rem; color: var(--muted); font-size: 1.05rem; }
+    .use-cases { display: grid; gap: 1.1rem; margin-top: 2.6rem; }
+    .use-case { display: flex; gap: 1rem; align-items: baseline; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+    .use-case span { color: var(--gold); font: 400 .8rem 'Playfair Display',serif; }
+    .use-case p { color: var(--cream); font-size: .92rem; }
+    .notice { margin-top: 2rem; padding: 1rem 1.1rem; border-left: 2px solid var(--gold); background: rgba(198,162,80,.07); color: var(--muted); font-size: .83rem; }
+    .notice strong { color: var(--cream); font-weight: 500; }
+    .order-card { padding: clamp(1.4rem,4vw,2.4rem); border: 1px solid rgba(198,162,80,.38); background: linear-gradient(145deg,rgba(28,26,21,.96),rgba(14,13,12,.94)); box-shadow: 0 25px 65px rgba(0,0,0,.32); }
+    .order-card h2 { color: var(--ivory); font-size: clamp(1.7rem,3vw,2.3rem); }
+    .card-intro { margin: .7rem 0 1.6rem; color: var(--muted); font-size: .86rem; }
+    .field { margin-top: 1rem; }
+    .field label { display: block; margin-bottom: .35rem; color: var(--cream); font-size: .76rem; letter-spacing: .04em; }
+    .field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: .8rem .9rem; border: 1px solid var(--line); border-radius: 0; outline: none; background: rgba(14,13,12,.65); color: var(--cream); }
+    .field textarea { min-height: 100px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: .8; }
+    .field select { color-scheme: dark; }
+    .quantity-hint { display: block; margin-top: .3rem; color: var(--muted); font-size: .7rem; }
+    .submit { display: flex; align-items: center; justify-content: center; gap: .7rem; width: 100%; min-height: 54px; margin-top: 1.4rem; border: 1px solid var(--gold); background: var(--gold); color: var(--black); font-size: .72rem; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; cursor: pointer; transition: background .25s,color .25s; }
+    .submit:hover { background: var(--gold-soft); }
+    .submit:disabled { cursor: wait; opacity: .65; }
+    .submit svg { width: 16px; height: 16px; }
+    .feedback { min-height: 1.5rem; margin-top: .85rem; color: var(--muted); font-size: .76rem; }
+    .privacy-note { color: var(--muted); font-size: .68rem; }
+    @media (max-width: 760px) {
+      .order-grid { grid-template-columns: 1fr; }
+      .order-card { grid-row: 1; }
+      .back-link { font-size: .58rem; }
+    }
+    @media (max-width: 420px) {
+      .brand { gap: .45rem; font-size: .94rem; letter-spacing: .19em; }
+      .brand svg { width: 25px; height: 25px; }
+      .back-link { max-width: 9ch; text-align: right; line-height: 1.5; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="brand" aria-label="LISANDRU DeColecție — pagina principală">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M20 3C14 10 12 15 12 21a8 8 0 0016 0c0-6-2-11-8-18z" stroke="#C6A250" stroke-width="1.3"/>
+        <path d="M20 29v8M14 37h12" stroke="#C6A250" stroke-width="1.3"/>
+      </svg>
+      <span>LISANDRU<small>DeColecție</small></span>
+    </a>
+    <a class="back-link" href="index.html">Înapoi la site</a>
+  </header>
+
+  <main>
+    <div class="container order-grid">
+      <section>
+        <span class="eyebrow">Comenzi pentru grupuri și parteneri</span>
+        <h1>Comandă vin pentru <em>momente speciale.</em></h1>
+        <p class="intro">Pentru evenimente, restaurant, echipă sau cadouri, spune-ne de câte sticle ai nevoie. Revenim cu detalii despre disponibilitate, preț și livrare.</p>
+
+        <div class="use-cases" aria-label="Pentru ce poți solicita o comandă">
+          <div class="use-case"><span>01</span><p>Restaurante, pensiuni și locații de evenimente</p></div>
+          <div class="use-case"><span>02</span><p>Nunți, aniversări și evenimente private</p></div>
+          <div class="use-case"><span>03</span><p>Cadouri pentru echipe, clienți și parteneri</p></div>
+        </div>
+
+        <p class="notice"><strong>În afara colecției numerotate.</strong> Aceasta este o solicitare pentru vinul disponibil în cantități mai mari, nu o rezervare a sticlelor individuale din Lotul 01. Comanda se confirmă după ce discutăm detaliile.</p>
+      </section>
+
+      <form class="order-card" id="bulkOrderForm">
+        <span class="eyebrow">Solicită o ofertă</span>
+        <h2>Spune-ne ce <em>ai nevoie.</em></h2>
+        <p class="card-intro">Completează formularul și revenim pentru confirmarea comenzii.</p>
+
+        <div class="field">
+          <label for="orderName">Nume și prenume *</label>
+          <input id="orderName" name="name" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="orderEmail">Adresă de email *</label>
+          <input id="orderEmail" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="orderPhone">Telefon *</label>
+          <input id="orderPhone" name="phone" type="tel" autocomplete="tel" required />
+        </div>
+        <div class="field">
+          <label for="orderQuantity">Cantitate dorită (sticle) *</label>
+          <input id="orderQuantity" name="quantity" type="number" min="1" step="1" inputmode="numeric" placeholder="De exemplu, 24" required />
+          <small class="quantity-hint">Introdu numărul de sticle; discutăm împreună disponibilitatea și livrarea.</small>
+        </div>
+        <div class="field">
+          <label for="orderPurpose">Tipul comenzii</label>
+          <select id="orderPurpose" name="purpose">
+            <option value="Persoană fizică">Persoană fizică</option>
+            <option value="Restaurant sau HoReCa">Restaurant sau HoReCa</option>
+            <option value="Eveniment">Eveniment</option>
+            <option value="Cadouri corporate">Cadouri corporate</option>
+            <option value="Magazin sau distribuitor">Magazin sau distribuitor</option>
+            <option value="Altul">Altul</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="orderMessage">Detalii suplimentare</label>
+          <textarea id="orderMessage" name="message" placeholder="Localitatea livrării, data evenimentului sau alte detalii utile"></textarea>
+        </div>
+        <button class="submit" type="submit">
+          Trimite solicitarea
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+        <p class="feedback" id="orderFeedback" role="status" aria-live="polite"></p>
+        <p class="privacy-note">Trimiterea formularului nu reprezintă confirmarea unei comenzi sau a unui preț.</p>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const orderForm = document.getElementById('bulkOrderForm');
+    const orderFeedback = document.getElementById('orderFeedback');
+
+    orderForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      const submitButton = orderForm.querySelector('button[type="submit"]');
+      const formData = new FormData(orderForm);
+      submitButton.disabled = true;
+      orderFeedback.textContent = 'Se trimite solicitarea...';
+
+      try {
+        const { error } = await db.from('cereri_comenzi_vin').insert({
+          nume: String(formData.get('name') || '').trim(),
+          email: String(formData.get('email') || '').trim(),
+          telefon: String(formData.get('phone') || '').trim(),
+          cantitate: Number(formData.get('quantity')),
+          tip_comanda: String(formData.get('purpose') || '').trim(),
+          mesaj: String(formData.get('message') || '').trim()
+        });
+        if (error) throw error;
+        orderForm.reset();
+        orderFeedback.textContent = 'Solicitarea a fost trimisă. Te vom contacta pentru confirmarea detaliilor.';
+      } catch (error) {
+        console.error('Nu s-a putut trimite solicitarea pentru cantitate mare.', error);
+        orderFeedback.textContent = 'Nu am putut trimite solicitarea. Încearcă din nou sau contactează-ne direct.';
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
