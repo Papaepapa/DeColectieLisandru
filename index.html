@@ -307,6 +307,47 @@
     .hero-concept span { display: block; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
     .hero-title strong { color: inherit; font: inherit; }
     .hero-subheadline { max-width: 24ch; margin: 1.3rem 0 2.1rem; color: var(--cream); font: italic 400 clamp(1.5rem,3vw,2rem)/1.15 'Cormorant Garamond', serif; }
+    .hero-order {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      width: min(100%, 520px);
+      margin-top: 1.8rem;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid rgba(198,162,80,.48);
+      background: linear-gradient(110deg, rgba(198,162,80,.14), rgba(28,26,21,.78) 65%);
+      box-shadow: 0 12px 35px rgba(0,0,0,.24);
+      transition: border-color .3s, background .3s, transform .3s;
+    }
+    .hero-order:hover, .hero-order:focus-visible { border-color: var(--gold); background: linear-gradient(110deg, rgba(198,162,80,.22), rgba(28,26,21,.86) 65%); transform: translateY(-2px); }
+    .hero-order:focus-visible, .hero-bulk-order:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 4px; }
+    .hero-order-label {
+      display: block;
+      margin-bottom: .3rem;
+      color: var(--gold-soft);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .hero-order-copy { color: var(--ivory); font: 400 1rem/1.3 'Playfair Display', serif; }
+    .hero-bulk-order {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      width: min(100%, 520px);
+      margin-top: 1.2rem;
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--line);
+      background: rgba(28,26,21,.78);
+      transition: border-color .3s, background .3s;
+    }
+    .hero-bulk-order:hover { border-color: var(--gold); background: rgba(198,162,80,.08); }
+    .hero-bulk-order:focus-visible { border-color: var(--gold); background: rgba(198,162,80,.08); }
+    .hero-bulk-order-copy { color: var(--ivory); font: 400 1rem/1.3 'Playfair Display', serif; }
+    .hero-bulk-order-label { display: block; margin-bottom: .25rem; color: var(--gold); font: 500 .58rem/1.4 'Jost',sans-serif; letter-spacing: .16em; text-transform: uppercase; }
     .harvest-links { padding-block: clamp(3.5rem,7vw,6rem); background: var(--black-soft); }
     .harvest-links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     .harvest-link { min-height: 190px; padding: 1.8rem; border: 1px solid var(--line); background: linear-gradient(160deg, rgba(28,26,21,.65), rgba(14,13,12,.35)); transition: transform .35s, border-color .35s; }
@@ -362,6 +403,34 @@
       transform: translateY(-6px) scale(1.02);
       box-shadow: 0 55px 90px rgba(0,0,0,.75), inset 0 0 0 1px rgba(198,162,80,.4);
     }
+    .hero-photo-cta {
+      position: absolute;
+      left: 50%;
+      bottom: 12%;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .8rem 1.15rem;
+      border: 1px solid rgba(216,190,130,.72);
+      background: rgba(14,13,12,.52);
+      backdrop-filter: blur(7px);
+      color: var(--ivory);
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      transition: background .3s, border-color .3s, color .3s;
+    }
+    .hero-photo-cta:hover, .hero-photo-cta:focus-visible {
+      border-color: var(--gold-soft);
+      background: rgba(14,13,12,.78);
+      color: var(--gold-soft);
+    }
+    .hero-photo-cta:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 4px; }
+    .hero-photo-cta svg { width: 14px; height: 14px; }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
 
     .hero-scroll {
@@ -658,11 +727,17 @@
     /* =========================================================
        RESPONSIVE
     ========================================================= */
+    @media (max-width: 1200px) {
+      .hero-scroll { display: none; }
+    }
     @media (max-width: 960px) {
+      #acasa { align-items: flex-start; padding-top: 9rem; }
       .hero-grid { grid-template-columns: 1fr; }
-      .hero-visual { min-height: 42vh; order: -1; }
+      .hero-copy { order: 0; padding-top: 2rem; }
+      .hero-visual { min-height: 30vh; order: -1; align-items: flex-start; }
       .hero-visual::before { width: 320px; height: 320px; }
       .hero-visual::after { width: 220px; height: 220px; }
+      .bottle { max-height: 38vh; }
       .story-grid, .product-grid, .contact-grid { grid-template-columns: 1fr; }
       .story-figure { max-width: 420px; margin-inline: auto; }
       .why-grid, .reviews { grid-template-columns: 1fr; }
@@ -693,6 +768,8 @@
       .product-gallery { grid-template-columns: 1fr; }
       .product-gallery .main { grid-row: auto; aspect-ratio: 3/4; }
       .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-order { align-items: stretch; flex-direction: column; gap: .9rem; }
+      .hero-bulk-order { align-items: flex-start; flex-direction: column; gap: .3rem; }
     }
   </style>
 </head>
@@ -716,6 +793,7 @@
       <li><a href="#colectia">Colecția</a></li>
       <li><a href="inchiriaza-vita.html">Vița ta</a></li>
       <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="comenzi-mari.html">Comenzi</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="colectie.html" class="nav-cta">Alege sticla</a></li>
     </ul>
@@ -731,16 +809,29 @@
       <div class="hero-grid">
         <div class="hero-copy reveal">
           <span class="eyebrow">LISANDRU DeColecție · Vin roșu de familie</span>
-          <h1 class="hero-concept">UN VIN CARE<span>MERITĂ PĂSTRAT.</span></h1>
-          <p class="hero-subheadline">Ediție limitată.<br /><span id="heroBottleCount">0</span> de sticle numerotate.</p>
-          <div class="hero-actions">
-            <a href="colectie.html" class="btn solid">DESCOPERĂ COLECȚIA</a>
+          <h1 class="hero-concept">*LISANDRU*<span>Picături din cer.</span></h1>
+          <p class="hero-subheadline">„Priviți apa care cade din cer peste viile noastre. Ea intră în rădăcinile viței-de-vie și se
+             transformă în vin. Dovadă constantă că Dumnezeu ne iubește și dorește să ne vadă fericiți.”<br />Benjamin Franklin.</p>
+          <a class="hero-order" href="colectie.html" aria-label="Alege o sticlă numerotată din colecție">
+            <div>
+              <span class="hero-order-label">Comandă · Lotul 01</span>
+              <p class="hero-order-copy">Alege sticla ta de colecție.</p>
+            </div>
+          </a>
+          <a class="hero-bulk-order" href="comenzi-mari.html">
+            <p class="hero-bulk-order-copy"><span class="hero-bulk-order-label">Pentru evenimente și comenzi mari</span>Vin pentru momente speciale.</p>
+          </a>
+          <div class="hero-actions" style="margin-top:1rem;">
             <a href="#vinul" class="btn">DESPRE VIN</a>
           </div>
         </div>
 
         <div class="hero-visual reveal">
           <img class="bottle" src="poza.webp" alt="Sticlă LISANDRU DeColecție" />
+          <a class="hero-photo-cta" href="colectie.html">
+            Comandă acum
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -906,6 +997,9 @@
           </div>
 
           <p class="form-note" style="margin-top:1.4rem;">Ambalaj cadou și mesaj personalizat disponibile la cerere.</p>
+          <a class="hero-bulk-order" href="comenzi-mari.html">
+            <p class="hero-bulk-order-copy"><span class="hero-bulk-order-label">Comenzi în cantități mari</span>Vin pentru momente speciale.</p>
+          </a>
         </div>
       </div>
 
@@ -1068,7 +1162,6 @@
     const SUPABASE_URL = 'https://lblfiwlartqjkpkjquqb.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_yFf5skpAQs31kDaiq4ya0g_hRgeu0Bs';
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    document.getElementById('heroBottleCount').textContent = totalBottles;
     document.getElementById('collectionCardCount').textContent = totalBottles;
     document.getElementById('lotBottleCount').textContent = totalBottles;
     document.getElementById('productAvailability').textContent = `${totalBottles} din ${totalBottles} sticle`;
